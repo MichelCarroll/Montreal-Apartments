@@ -1,0 +1,5 @@
+NimbusApartmentsBundle_listing:
+  pattern: /
+  defaults: { _controller: NimbusApartmentsBundle:Listing:index }
+  requirements:
+    _method: GET
