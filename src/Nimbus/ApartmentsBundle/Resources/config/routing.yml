@@ -5,8 +5,8 @@ NimbusApartmentsBundle_listing:
     _method: GET
     
     
-NimbusApartmentsBundle_registerApartment:
-  pattern: /apartment/register
-  defaults: { _controller: NimbusApartmentsBundle:Apartment:register, _format: json }
+NimbusApartmentsBundle_newApartment:
+  pattern: /apartment/new
+  defaults: { _controller: NimbusApartmentsBundle:Apartment:new, _format: json }
   requirements:
     _method: POST

@@ -4,7 +4,10 @@ namespace Nimbus\BaseBundle\Entity;
 
 use Symfony\Component\DependencyInjection\Container as Container;
 
-class Entity
+use IteratorAggregate;
+use ArrayIterator;
+
+abstract class Entity implements IteratorAggregate
 {
 
   public function fromArray(array $data)
@@ -18,6 +21,11 @@ class Entity
       }
       
     }
+  }
+  
+  public function getIterator()
+  {
+    return new ArrayIterator(get_object_vars($this));
   }
   
 }

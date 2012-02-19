@@ -61,8 +61,6 @@ class ApartmentControllerTest extends WebTestCase
   }
 
   
-  
-  
   public function testRegisterComplete()
   {
     $client = self::createClient(array(), array(
@@ -80,16 +78,17 @@ class ApartmentControllerTest extends WebTestCase
         'ignoredvalue' => 'ignoredvalue',
     );
 
-    $crawler = $client->request('POST', '/apartment/register', $params);
+    $crawler = $client->request('POST', '/apartment/new', $params);
     $result = json_decode($client->getResponse()->getContent());
     
     $this->assertEquals(200, $client->getResponse()->getStatusCode());
     $this->assertTrue($result->success, $client->getResponse()->getContent());
-
+    
     $apt = self::$em->getRepository('NimbusApartmentsBundle:Apartment')
             ->findOneBy(array('title' => $title));
 
     $this->assertNotNull($apt);
+    $this->assertAttributeNotEmpty('id', $result->data);
     
     $this->assertTrue($this->isUserOwnerOfApartment(self::LANDLORD_USERNAME, $apt));
   }
@@ -110,7 +109,7 @@ class ApartmentControllerTest extends WebTestCase
         'latitude' => 212374982.345
     );
 
-    $crawler = $client->request('POST', '/apartment/register', $params);
+    $crawler = $client->request('POST', '/apartment/new', $params);
     $result = json_decode($client->getResponse()->getContent());
 
     $this->assertEquals(200, $client->getResponse()->getStatusCode());
@@ -120,6 +119,7 @@ class ApartmentControllerTest extends WebTestCase
             ->findOneBy(array('title' => $title));
 
     $this->assertNotNull($apt);
+    $this->assertAttributeNotEmpty('id', $result->data);
     
     $this->assertTrue($this->isUserOwnerOfApartment(self::LANDLORD_USERNAME, $apt));
   }
@@ -137,7 +137,7 @@ class ApartmentControllerTest extends WebTestCase
         'street_address' => '5456 Lasalle Boul',
     );
 
-    $crawler = $client->request('POST', '/apartment/register', $params);
+    $crawler = $client->request('POST', '/apartment/new', $params);
     $result = json_decode($client->getResponse()->getContent());
 
     $this->assertFalse($result->success, $client->getResponse()->getContent());
@@ -146,6 +146,8 @@ class ApartmentControllerTest extends WebTestCase
 
     $apt = self::$em->getRepository('NimbusApartmentsBundle:Apartment')
             ->findOneBy(array('title' => $title));
+    
+    $this->assertObjectNotHasAttribute('data', $result);
 
     $this->assertEmpty($apt);
   }
@@ -164,7 +166,7 @@ class ApartmentControllerTest extends WebTestCase
         'ignoredvalue' => 'ignoredvalue',
     );
 
-    $crawler = $client->request('POST', '/apartment/register', $params);
+    $crawler = $client->request('POST', '/apartment/new', $params);
     $result = json_decode($client->getResponse()->getContent());
 
     $this->assertFalse($result->success, $client->getResponse()->getContent());
@@ -173,6 +175,8 @@ class ApartmentControllerTest extends WebTestCase
     $apt = self::$em->getRepository('NimbusApartmentsBundle:Apartment')
             ->findOneBy(array('title' => $title));
 
+    $this->assertObjectNotHasAttribute('data', $result);
+    
     $this->assertNull($apt);
   }
 

@@ -6,7 +6,7 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Nimbus\ApartmentsBundle\Entity\User;
 
-class LoadUserData implements FixtureInterface
+class LoadTestUserData implements FixtureInterface
 {
 
   public function load(ObjectManager $manager)

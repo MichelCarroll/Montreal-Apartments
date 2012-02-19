@@ -8,7 +8,7 @@ use Symfony\Component\Validator\ConstraintViolation as ConstraintViolation;
 class RestHelper
 {
    
-  public static function returnPostResponse($errors)
+  public static function returnPostResponse($data = array(), $errors = array())
   {
     if(count($errors))
     {
@@ -18,7 +18,7 @@ class RestHelper
       return $response;
     }
     
-    return new Response(json_encode(array('success' => true)));
+    return new Response(json_encode(array('success' => true, 'data' => $data)));
   }
   
   

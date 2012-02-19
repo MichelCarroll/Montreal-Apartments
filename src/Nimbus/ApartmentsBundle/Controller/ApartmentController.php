@@ -13,7 +13,7 @@ use Exception;
 class ApartmentController extends Controller
 {
   
-  public function registerAction(Request $request)
+  public function newAction(Request $request)
   {
     $apartment = new Apartment();
     $apartment->fromArray($request->request->all());
@@ -25,7 +25,7 @@ class ApartmentController extends Controller
     {
       try
       {
-        $this->get('apartment_registration_handler')->register($apartment);
+        $apartment = $this->get('apartment_registration_handler')->register($apartment);
       }
       catch(Exception $e)
       {
@@ -33,7 +33,9 @@ class ApartmentController extends Controller
       }
     }
     
-    return RestHelper::returnPostResponse($errors);
+    return RestHelper::returnPostResponse($apartment->getIterator(), $errors);
   }
+  
+  
   
 }
