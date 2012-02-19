@@ -16,10 +16,12 @@ class RegistrationHandler
   /* @var $security_context SecurityContext */
   private $security_context;
   
-  public function __construct(EntityManager $em, SecurityContext $security_context)
+  public function __construct(EntityManager $em, SecurityContext $security_context, $acl_provider)
   {
+    var_dump(get_class($acl_provider)); die();
     $this->em = $em;
     $this->security_context = $security_context;
+    $this->acl_provider = $acl_provider;
   }
   
   /**
