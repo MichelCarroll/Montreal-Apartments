@@ -9,7 +9,7 @@ use Nimbus\ApartmentsBundle\Helper\UrlHelper;
  * @ORM\Entity
  * @ORM\Table(name="apartment")
  */
-class ApartmentEntry implements Geolocatable
+class Apartment implements Geolocatable
 {
     
     /**
