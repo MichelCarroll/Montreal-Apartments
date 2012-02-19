@@ -18,7 +18,8 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new Nimbus\ApartmentsBundle\NimbusApartmentsBundle(),
-            new FOS\UserBundle\FOSUserBundle()
+            new FOS\UserBundle\FOSUserBundle(),
+            new Nimbus\BaseBundle\NimbusBaseBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

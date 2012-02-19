@@ -3,3 +3,10 @@ NimbusApartmentsBundle_listing:
   defaults: { _controller: NimbusApartmentsBundle:Listing:index }
   requirements:
     _method: GET
+    
+    
+NimbusApartmentsBundle_registerApartment:
+  pattern: /apartment/register
+  defaults: { _controller: NimbusApartmentsBundle:Apartment:register, _format: json }
+  requirements:
+    _method: POST

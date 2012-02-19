@@ -1,4 +1,10 @@
+imports:
+    - { resource: "@NimbusApartmentsBundle/Resources/config/security.yml" }
+
 security:
+    acl:
+        connection: default
+        
     encoders:
         'FOS\UserBundle\Model\UserInterface': sha512
 

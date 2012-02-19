@@ -1,0 +1,11 @@
+
+Nimbus\ApartmentsBundle\Entity\Apartment:
+    properties:
+        title:
+            - NotBlank: ~
+        slug:
+            - NotBlank: ~
+        street_address:
+            - NotBlank: ~
+        postal_code:
+            - NotBlank: ~

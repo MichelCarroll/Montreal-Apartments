@@ -1,0 +1,6 @@
+security:
+
+    role_hierarchy:
+        ROLE_LANDLORD:    ROLE_USER
+        ROLE_ADMIN:       [ROLE_USER, ROLE_LANDLORD]
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_LANDLORD, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
