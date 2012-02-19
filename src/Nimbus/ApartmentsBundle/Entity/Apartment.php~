@@ -2,6 +2,7 @@
 
 namespace Nimbus\ApartmentsBundle\Entity;
 
+use Nimbus\BaseBundle\Entity\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Nimbus\ApartmentsBundle\Helper\UrlHelper;
 
@@ -12,7 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="apartment")
  * @ORM\Entity(repositoryClass="Nimbus\ApartmentsBundle\Repository\ApartmentRepository")
  */
-class Apartment implements Geolocatable
+class Apartment extends Entity implements Geolocatable
 {
     
     /**
@@ -37,7 +38,7 @@ class Apartment implements Geolocatable
     }
     
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", unique="true")
      */
     protected $slug;
     
@@ -62,12 +63,12 @@ class Apartment implements Geolocatable
     protected $postal_code;
     
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable="true")
      */
     protected $apartment_number;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable="true")
      */
     protected $description;
 

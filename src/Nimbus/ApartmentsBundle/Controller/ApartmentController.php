@@ -3,44 +3,37 @@
 namespace Nimbus\ApartmentsBundle\Controller;
 
 use Nimbus\ApartmentsBundle\Entity\Apartment as Apartment;
+use Nimbus\BaseBundle\Helper\RestHelper;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as Controller;
 use Symfony\Component\HttpFoundation\Request as Request;
-use Symfony\Component\HttpFoundation\Response as Response;
-use Symfony\Component\DependencyInjection\Container as Container;
+
+use Exception;
 
 class ApartmentController extends Controller
 {
   
-  private static $acceptedApartFields = array(
-    'title', 'street_address', 'postal_code', 'apartment_number',
-    'longitude', 'latitude'
-  );
-  
   public function registerAction(Request $request)
   {
     $apartment = new Apartment();
-    
-    foreach(self::$acceptedApartFields as $field)
-    {
-      $value = $request->get($field);
-      call_user_func(array($apartment, 'set'.Container::camelize($field)), $value);
-    }
+    $apartment->fromArray($request->request->all());
     
     /* @var $errors Symfony\Component\Validator\ConstraintViolationList */
     $errors = $this->container->get('validator')->validate($apartment);
     
-    if(count($errors))
+    if(!count($errors))
     {
-      $legibleErrors = array();
-      foreach($errors as $error)
+      try
       {
-        $legibleErrors[$error->getPropertyPath()] = $error->getMessage();
+        $this->get('apartment_registration_handler')->register($apartment);
       }
-      return new Response(json_encode(array('success' => false, 'errors' => $legibleErrors)));
+      catch(Exception $e)
+      {
+        $errors = array($e->getMessage());
+      }
     }
     
-    return new Response(json_encode(array('success' => true)));
+    return RestHelper::returnPostResponse($errors);
   }
   
 }
