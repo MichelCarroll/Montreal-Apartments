@@ -4,8 +4,15 @@ namespace Nimbus\ApartmentsBundle\Handler\Apartment;
 
 use Doctrine\ORM\EntityManager;
 use Nimbus\ApartmentsBundle\Entity\Apartment as Apartment;
+
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
+use Symfony\Component\Security\Acl\Dbal\AclProvider;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+
 
 class RegistrationHandler
 {
@@ -16,9 +23,11 @@ class RegistrationHandler
   /* @var $security_context SecurityContext */
   private $security_context;
   
-  public function __construct(EntityManager $em, SecurityContext $security_context, $acl_provider)
+  /* @var $acl_provider AclProvider */
+  private $acl_provider;
+  
+  public function __construct(EntityManager $em, SecurityContext $security_context, AclProvider $acl_provider)
   {
-    var_dump(get_class($acl_provider)); die();
     $this->em = $em;
     $this->security_context = $security_context;
     $this->acl_provider = $acl_provider;
@@ -38,11 +47,26 @@ class RegistrationHandler
     }
     
     $apartment = $this->saveApartment($apartment);
-    
-    
     $this->em->flush();
+    $apartment = $this->setCurrentUserAsOwner($apartment);
+    
+    
+    return $apartment;
   }
   
+  private function setCurrentUserAsOwner(Apartment $apartment)
+  {
+    $objectIdentity = ObjectIdentity::fromDomainObject($apartment);
+    $acl = $this->acl_provider->createAcl($objectIdentity);
+
+    $user = $this->security_context->getToken()->getUser();
+    $securityIdentity = UserSecurityIdentity::fromAccount($user);
+
+    $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
+    $this->acl_provider->updateAcl($acl);
+    
+    return $apartment;
+  }
   
   
   /**

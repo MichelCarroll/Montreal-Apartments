@@ -29,7 +29,7 @@ class ApartmentController extends Controller
       }
       catch(Exception $e)
       {
-        $errors = array($e->getMessage());
+        $errors = array('message' => $e->getMessage(), 'trace' => $e->getTrace());
       }
     }
     

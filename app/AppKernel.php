@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Nimbus\ApartmentsBundle\NimbusApartmentsBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Nimbus\BaseBundle\NimbusBaseBundle(),
+            new Symfony\Bundle\DoctrineFixturesBundle\DoctrineFixturesBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

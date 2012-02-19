@@ -12,3 +12,11 @@ web_profiler:
 
 swiftmailer:
     disable_delivery: true
+    
+    
+security:
+    firewalls:
+        main:
+            stateless:  true
+            http_basic: true
+            form_login: false
