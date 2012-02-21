@@ -37,5 +37,15 @@ class ApartmentController extends Controller
   }
   
   
+  public function updateAction(Request $request)
+  { 
+    
+  }
+  
+  
+  public function deleteAction(Request $request)
+  { 
+    
+  }
   
 }

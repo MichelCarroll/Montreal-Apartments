@@ -81,8 +81,8 @@ class ApartmentControllerTest extends WebTestCase
     $crawler = $client->request('POST', '/apartment/new', $params);
     $result = json_decode($client->getResponse()->getContent());
     
-    $this->assertEquals(200, $client->getResponse()->getStatusCode());
     $this->assertTrue($result->success, $client->getResponse()->getContent());
+    $this->assertEquals(200, $client->getResponse()->getStatusCode());
     
     $apt = self::$em->getRepository('NimbusApartmentsBundle:Apartment')
             ->findOneBy(array('title' => $title));
