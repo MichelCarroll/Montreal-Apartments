@@ -7,11 +7,17 @@ use Nimbus\BaseBundle\Helper\RestHelper;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as Controller;
 use Symfony\Component\HttpFoundation\Request as Request;
+use Symfony\Component\HttpFoundation\Response as Response;
 
 use Exception;
 
 class ApartmentController extends Controller
 {
+  
+  public function newFormAction()
+  {
+    return new Response();
+  }
   
   public function newAction(Request $request)
   {
@@ -36,6 +42,11 @@ class ApartmentController extends Controller
     return RestHelper::returnPostResponse($apartment->getIterator(), $errors);
   }
   
+  
+  public function updateFormAction(Request $request, $slug)
+  { 
+    
+  }
   
   public function updateAction(Request $request)
   { 

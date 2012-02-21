@@ -1,12 +1,50 @@
-NimbusApartmentsBundle_listing:
+ 
+index_browsing:
   pattern: /
-  defaults: { _controller: NimbusApartmentsBundle:Listing:index }
+  defaults: { _controller: NimbusApartmentsBundle:Browsing:index }
   requirements:
     _method: GET
     
+summary_browsing:
+  pattern: /summary/{slug}
+  defaults: { _controller: NimbusApartmentsBundle:Browsing:summary }
+  requirements:
+    _method: GET
     
-NimbusApartmentsBundle_newApartment:
+details_browsing:
+  pattern: /details/{slug}
+  defaults: { _controller: NimbusApartmentsBundle:Browsing:details }
+  requirements:
+    _method: GET
+    
+new_form_apartment:
   pattern: /apartment/new
-  defaults: { _controller: NimbusApartmentsBundle:Apartment:new, _format: json }
+  defaults: { _controller: NimbusApartmentsBundle:Apartment:newForm }
+  requirements:
+    _method: GET
+    
+new_apartment:
+  pattern: /apartment/new
+  defaults: { _controller: NimbusApartmentsBundle:Apartment:new }
+  requirements:
+    _method: POST
+    
+    
+update_form_apartment:
+  pattern: /apartment/update/{slug}
+  defaults: { _controller: NimbusApartmentsBundle:Apartment:updateForm }
+  requirements:
+    _method: GET
+    
+update_apartment:
+  pattern: /apartment/update
+  defaults: { _controller: NimbusApartmentsBundle:Apartment:update }
+  requirements:
+    _method: POST
+    
+    
+delete_apartment:
+  pattern: /apartment/delete
+  defaults: { _controller: NimbusApartmentsBundle:Apartment:delete }
   requirements:
     _method: POST

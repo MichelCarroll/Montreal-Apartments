@@ -15,7 +15,12 @@ class BrowsingController extends Controller
     
   }
   
-  public function detailAction(Request $request)
+  public function summaryAction(Request $request, $slug)
+  {
+    
+  }
+  
+  public function detailsAction(Request $request, $slug)
   {
     
   }
