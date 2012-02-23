@@ -2,13 +2,14 @@
 
 namespace Nimbus\ApartmentsBundle\Entity;
 
+use Nimbus\BaseBundle\Entity\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="lease")
  */
-class Lease
+class Lease extends Entity
 {
     
     /**

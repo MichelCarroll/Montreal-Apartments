@@ -9,7 +9,3 @@ Nimbus\ApartmentsBundle\Entity\Apartment:
             - NotBlank: ~
         postal_code:
             - NotBlank: ~
-        longitude:
-            - NotBlank: ~
-        latitude:
-            - NotBlank: ~

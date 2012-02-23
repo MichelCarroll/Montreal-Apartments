@@ -43,12 +43,12 @@ class Apartment extends Entity implements Geolocatable
     protected $slug;
     
     /**
-     * @ORM\Column(type="decimal", scale=3)
+     * @ORM\Column(type="decimal", scale=3, nullable="true")
      */
     protected $longitude;
     
     /**
-     * @ORM\Column(type="decimal", scale=3)
+     * @ORM\Column(type="decimal", scale=3, nullable="true")
      */
     protected $latitude;
     

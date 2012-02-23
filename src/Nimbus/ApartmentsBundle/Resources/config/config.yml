@@ -1,4 +1,4 @@
 services:
     apartment_registration_handler:
-        class:        'Nimbus\ApartmentsBundle\Handler\Apartment\RegistrationHandler'
+        class:        'Nimbus\ApartmentsBundle\Handler\ApartmentHandler'
         arguments:    ['@doctrine.orm.entity_manager', '@security.context', '@security.acl.provider']

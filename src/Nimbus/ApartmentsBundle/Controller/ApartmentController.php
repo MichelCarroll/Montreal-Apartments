@@ -3,43 +3,54 @@
 namespace Nimbus\ApartmentsBundle\Controller;
 
 use Nimbus\ApartmentsBundle\Entity\Apartment as Apartment;
+use Nimbus\ApartmentsBundle\Form\Type\ApartmentType;
+
 use Nimbus\BaseBundle\Helper\RestHelper;
+use Nimbus\BaseBundle\Exception\FriendlyException;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as Controller;
 use Symfony\Component\HttpFoundation\Request as Request;
 use Symfony\Component\HttpFoundation\Response as Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
 
 use Exception;
 
 class ApartmentController extends Controller
-{
-  
-  public function newFormAction()
-  {
-    return new Response();
-  }
+{  
   
   public function newAction(Request $request)
   {
     $apartment = new Apartment();
-    $apartment->fromArray($request->request->all());
+    $form = $this->createForm(new ApartmentType(), $apartment);
     
-    /* @var $errors Symfony\Component\Validator\ConstraintViolationList */
-    $errors = $this->container->get('validator')->validate($apartment);
-    
-    if(!count($errors))
+    if ($request->getMethod() == 'POST') 
     {
-      try
+      $form->bindRequest($request);
+      
+      if($form->isValid())
       {
-        $apartment = $this->get('apartment_registration_handler')->register($apartment);
-      }
-      catch(Exception $e)
-      {
-        $errors = array('message' => $e->getMessage(), 'trace' => $e->getTrace());
+        $handler = $this->get('apartment_registration_handler');
+    
+        try
+        {
+          $apartment = $handler->register($apartment);
+          if(!$handler->setCurrentUserAsOwner($apartment))
+          {
+            $this->getRequest()->getSession()->set('anon_apartment', $apartment->getId());
+            return $this->redirect($this->generateUrl('fos_user_registration_register'));
+          }
+        }
+        catch(FriendlyException $e)
+        {
+          $this->get('session')->setFlash('errors', $e->getMessage());
+        }
       }
     }
     
-    return RestHelper::returnPostResponse($apartment->getIterator(), $errors);
+    return $this->render('NimbusApartmentsBundle:Apartment:new.html.twig', array(
+      'form' => $form->createView() 
+    ));
   }
   
   

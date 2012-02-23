@@ -1,6 +1,6 @@
 <?php
 
-namespace Nimbus\ApartmentsBundle\Handler\Apartment;
+namespace Nimbus\ApartmentsBundle\Handler;
 
 use Doctrine\ORM\EntityManager;
 use Nimbus\ApartmentsBundle\Entity\Apartment as Apartment;
@@ -14,7 +14,7 @@ use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
 
-class RegistrationHandler
+class ApartmentHandler
 {
   
   /* @var $em EntityManager */
@@ -26,6 +26,8 @@ class RegistrationHandler
   /* @var $acl_provider AclProvider */
   private $acl_provider;
   
+  
+  
   public function __construct(EntityManager $em, SecurityContext $security_context, AclProvider $acl_provider)
   {
     $this->em = $em;
@@ -34,27 +36,39 @@ class RegistrationHandler
   }
   
   /**
-   * Verifies credentials, and saves an apartment if able.
+   * Saves an apartment
    * 
    * @param Apartment $apartment
    * @return Apartment 
    */
   public function register(Apartment $apartment)
   {
-    if(!$this->security_context->isGranted('ROLE_LANDLORD'))
-    {
-      throw new AccessDeniedException();
-    }
-    
     $apartment = $this->saveApartment($apartment);
     $this->em->flush();
-    $apartment = $this->setCurrentUserAsOwner($apartment);
-    
     
     return $apartment;
   }
   
-  private function setCurrentUserAsOwner(Apartment $apartment)
+  
+  /**
+   * Sssigns owner to apartment
+   * 
+   * @param Apartment $apartment
+   * @return bool Success 
+   */
+  public function setCurrentUserAsOwner(Apartment $apartment)
+  {
+    if(!is_object($this->security_context->getToken()->getUser()))
+    {
+      return false;
+    }
+    
+    $this->applyAclToApartment($apartment);
+    return true;
+  }
+  
+  
+  private function applyAclToApartment(Apartment $apartment)
   {
     $objectIdentity = ObjectIdentity::fromDomainObject($apartment);
     $acl = $this->acl_provider->createAcl($objectIdentity);
@@ -64,10 +78,7 @@ class RegistrationHandler
 
     $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
     $this->acl_provider->updateAcl($acl);
-    
-    return $apartment;
   }
-  
   
   /**
    *

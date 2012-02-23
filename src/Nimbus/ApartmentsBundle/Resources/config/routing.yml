@@ -17,17 +17,9 @@ details_browsing:
   requirements:
     _method: GET
     
-new_form_apartment:
-  pattern: /apartment/new
-  defaults: { _controller: NimbusApartmentsBundle:Apartment:newForm }
-  requirements:
-    _method: GET
-    
 new_apartment:
   pattern: /apartment/new
   defaults: { _controller: NimbusApartmentsBundle:Apartment:new }
-  requirements:
-    _method: POST
     
     
 update_form_apartment:
