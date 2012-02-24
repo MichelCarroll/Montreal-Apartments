@@ -67,5 +67,7 @@ fos_user:
     registration:
         confirmation:
             enabled:    true
+        form:
+            handler: acme_user.form.handler.registration
     service:
         mailer: fos_user.mailer.twig_swift

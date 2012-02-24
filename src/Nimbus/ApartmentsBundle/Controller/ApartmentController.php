@@ -35,9 +35,10 @@ class ApartmentController extends Controller
         try
         {
           $apartment = $handler->register($apartment);
-          if(!$handler->setCurrentUserAsOwner($apartment))
+          
+          $user = $this->get('security.context')->getToken()->getUser();
+          if(!is_object($user))
           {
-            $this->getRequest()->getSession()->set('anon_apartment', $apartment->getId());
             return $this->redirect($this->generateUrl('fos_user_registration_register'));
           }
         }

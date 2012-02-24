@@ -4,6 +4,7 @@ namespace Nimbus\ApartmentsBundle\Handler;
 
 use Doctrine\ORM\EntityManager;
 use Nimbus\ApartmentsBundle\Entity\Apartment as Apartment;
+use Symfony\Component\HttpFoundation\Request;
 
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -12,6 +13,7 @@ use Symfony\Component\Security\Acl\Dbal\AclProvider;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+use FOS\UserBundle\Model\UserInterface;
 
 
 class ApartmentHandler
@@ -26,13 +28,18 @@ class ApartmentHandler
   /* @var $acl_provider AclProvider */
   private $acl_provider;
   
+  /* @var $request Request */
+  private $request;
+  
+  const ANON_APARTMENT_SESSION = 'anon_apartment';
   
   
-  public function __construct(EntityManager $em, SecurityContext $security_context, AclProvider $acl_provider)
+  public function __construct(EntityManager $em, SecurityContext $security_context, AclProvider $acl_provider, Request $request)
   {
     $this->em = $em;
     $this->security_context = $security_context;
     $this->acl_provider = $acl_provider;
+    $this->request = $request;
   }
   
   /**
@@ -44,36 +51,58 @@ class ApartmentHandler
   public function register(Apartment $apartment)
   {
     $apartment = $this->saveApartment($apartment);
-    $this->em->flush();
+    
+    if(!$this->setCurrentUserAsOwner($apartment))
+    {
+      $this->request->getSession()->set(
+        self::ANON_APARTMENT_SESSION, $apartment->getId());
+    }
     
     return $apartment;
   }
   
   
+  public function resetOwnership(UserInterface $user)
+  {
+    $anon_apartment_id = 
+      $this->request->getSession()->get(self::ANON_APARTMENT_SESSION);
+    
+    if($anon_apartment_id)
+    {
+      $apartment = $this->em->find(
+        'NimbusApartmentsBundle:Apartment', 
+        $anon_apartment_id);
+      
+      $this->applyAclToApartment($user, $apartment);
+    }
+  }
+  
+  
   /**
-   * Sssigns owner to apartment
+   * Assigns current user to apartment
    * 
    * @param Apartment $apartment
    * @return bool Success 
    */
-  public function setCurrentUserAsOwner(Apartment $apartment)
+  private function setCurrentUserAsOwner(Apartment $apartment)
   {
-    if(!is_object($this->security_context->getToken()->getUser()))
+    $user = $this->security_context->getToken()->getUser();
+    
+    if(!is_object($user))
     {
       return false;
     }
     
-    $this->applyAclToApartment($apartment);
+    $this->applyAclToApartment($user, $apartment);
     return true;
   }
   
   
-  private function applyAclToApartment(Apartment $apartment)
+  private function applyAclToApartment(UserInterface $user, Apartment $apartment)
   {
     $objectIdentity = ObjectIdentity::fromDomainObject($apartment);
     $acl = $this->acl_provider->createAcl($objectIdentity);
 
-    $user = $this->security_context->getToken()->getUser();
     $securityIdentity = UserSecurityIdentity::fromAccount($user);
 
     $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
@@ -91,6 +120,7 @@ class ApartmentHandler
             $this->getUniqueSlug($apartment->getSlug()));
     
     $this->em->persist($apartment);
+    $this->em->flush();
     
     return $apartment;
   }
@@ -117,5 +147,6 @@ class ApartmentHandler
     }
     return $slug;
   }
+  
   
 }

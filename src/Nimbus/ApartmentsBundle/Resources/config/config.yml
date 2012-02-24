@@ -1,4 +1,19 @@
 services:
     apartment_registration_handler:
         class:        'Nimbus\ApartmentsBundle\Handler\ApartmentHandler'
-        arguments:    ['@doctrine.orm.entity_manager', '@security.context', '@security.acl.provider']
+        arguments:    ['@doctrine.orm.entity_manager', '@security.context', '@security.acl.provider', "@request"]
+        scope:        request
+        
+        
+    acme_user.form.handler.registration:
+        class:        'Nimbus\ApartmentsBundle\Handler\RegistrationHandler'
+        arguments:    ["@fos_user.registration.form", "@request", "@fos_user.user_manager", "@fos_user.mailer", "@event_dispatcher"]
+        scope:        request
+        public:       false
+        
+    registration_event_listener:
+        class:        'Nimbus\ApartmentsBundle\Listener\RegistrationListener'
+        arguments:    ['@apartment_registration_handler']
+        tags:
+            - { name: kernel.event_listener, event: fos_user.user_registered, method: onUserRegistered }
+        scope:        request
