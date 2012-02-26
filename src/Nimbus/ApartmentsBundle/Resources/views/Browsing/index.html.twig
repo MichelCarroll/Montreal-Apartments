@@ -1,0 +1,5 @@
+<ul>
+{% for apt in apartments %}
+    <li><a href="{{ path('details_browsing', {'slug': apt.slug}) }}">{{ apt.title }}</a></li>
+{% endfor %}
+</ul>

@@ -20,8 +20,7 @@ class Lease extends Entity
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Apartment", inversedBy="leases")
-     * @ORM\JoinColumn(name="apartment_id", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="Apartment", inversedBy="lease", cascade={"all"})
      */
     protected $apartment;
 

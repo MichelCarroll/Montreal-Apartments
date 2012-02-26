@@ -12,11 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class ApartmentRepository extends EntityRepository
 {
-//  public function findOneByTitle($title)
-//  {
-//      return $this->getEntityManager()
-//          ->createQuery('SELECT a FROM NimbusApartmentsBundle:Apartment a WHERE a.title = :title')
-//          ->setParameter('title', $title)
-//          ->getResult();
-//  }
+  public function getAllActive()
+  {
+      return $this->getEntityManager()
+          ->createQuery(
+            'SELECT a FROM NimbusApartmentsBundle:Apartment a 
+              JOIN a.owner u
+              WHERE u.enabled = 1'
+            )
+          ->getResult();
+  }
 }

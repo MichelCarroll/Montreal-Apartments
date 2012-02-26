@@ -41,6 +41,7 @@ class RegistrationHandler extends ParentClass
       $user->setEnabled(true);
     }
 
+    $user->setRoles(array('ROLE_LANDLORD'));
     $this->dispatcher->dispatch('fos_user.user_registered', new UserEvent($user));   
     
     $this->userManager->updateUser($user);

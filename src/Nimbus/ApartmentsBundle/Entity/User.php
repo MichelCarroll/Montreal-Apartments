@@ -30,4 +30,9 @@ class User extends BaseUser
     {
         return $this->id;
     }
+    
+    public function isAnonymous()
+    {
+      return ($this->getUsername() === 'anon.');
+    }
 }

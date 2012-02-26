@@ -7,7 +7,7 @@ index_browsing:
     
 summary_browsing:
   pattern: /summary/{slug}
-  defaults: { _controller: NimbusApartmentsBundle:Browsing:summary }
+  defaults: { _controller: NimbusApartmentsBundle:Browsing:summary, _format: json }
   requirements:
     _method: GET
     
@@ -17,22 +17,16 @@ details_browsing:
   requirements:
     _method: GET
     
+    
+    
 new_apartment:
   pattern: /apartment/new
   defaults: { _controller: NimbusApartmentsBundle:Apartment:new }
     
     
-update_form_apartment:
-  pattern: /apartment/update/{slug}
-  defaults: { _controller: NimbusApartmentsBundle:Apartment:updateForm }
-  requirements:
-    _method: GET
-    
 update_apartment:
-  pattern: /apartment/update
+  pattern: /apartment/update/{slug}
   defaults: { _controller: NimbusApartmentsBundle:Apartment:update }
-  requirements:
-    _method: POST
     
     
 delete_apartment:

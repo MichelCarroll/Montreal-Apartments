@@ -63,11 +63,8 @@ jms_security_extra:
 fos_user:
     db_driver: orm
     firewall_name: main
-    user_class: Nimbus\ApartmentsBundle\Entity\User
     registration:
         confirmation:
             enabled:    true
-        form:
-            handler: acme_user.form.handler.registration
     service:
         mailer: fos_user.mailer.twig_swift

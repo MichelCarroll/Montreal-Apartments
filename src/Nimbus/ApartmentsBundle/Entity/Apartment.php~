@@ -27,6 +27,13 @@ class Apartment extends Entity implements Geolocatable
      * @ORM\Column(type="string")
      */
     protected $title;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
+     */
+    protected $owner;
+    
 
     public function setTitle($title)
     {
@@ -85,16 +92,11 @@ class Apartment extends Entity implements Geolocatable
     }
     
     /**
-     * @ORM\OneToMany(targetEntity="Lease", mappedBy="apartment")
+     * @ORM\OneToOne(targetEntity="Lease", mappedBy="apartment", cascade={"all"})
+     * @ORM\JoinColumn(name="lease_id", referencedColumnName="id", nullable=false)
      */
-    protected $leases;
+    protected $lease;
     
-    
-    public function __construct()
-    {
-      $this->leases = new ArrayCollection();
-    }
-
     /**
      * Get id
      *
@@ -125,6 +127,7 @@ class Apartment extends Entity implements Geolocatable
         $this->slug = $slug;
     }
 
+    
     /**
      * Get slug
      *
@@ -235,25 +238,6 @@ class Apartment extends Entity implements Geolocatable
         return $this->apartment_number;
     }
 
-    /**
-     * Add leases
-     *
-     * @param Nimbus\ApartmentsBundle\Entity\Lease $leases
-     */
-    public function addLease(\Nimbus\ApartmentsBundle\Entity\Lease $leases)
-    {
-        $this->leases[] = $leases;
-    }
-
-    /**
-     * Get leases
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getLeases()
-    {
-        return $this->leases;
-    }
 
     /**
      * Set description
@@ -273,5 +257,65 @@ class Apartment extends Entity implements Geolocatable
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set lease
+     *
+     * @param Nimbus\ApartmentsBundle\Entity\Lease $lease
+     */
+    public function setLease(\Nimbus\ApartmentsBundle\Entity\Lease $lease)
+    {
+        $this->lease = $lease;
+    }
+
+    /**
+     * Get lease
+     *
+     * @return Nimbus\ApartmentsBundle\Entity\Lease 
+     */
+    public function getLease()
+    {
+        return $this->lease;
+    }
+
+    /**
+     * Set is_published
+     *
+     * @param boolean $isPublished
+     */
+    public function setIsPublished($isPublished)
+    {
+        $this->is_published = $isPublished;
+    }
+
+    /**
+     * Get is_published
+     *
+     * @return boolean 
+     */
+    public function getIsPublished()
+    {
+        return $this->is_published;
+    }
+
+    /**
+     * Set owner
+     *
+     * @param Nimbus\ApartmentsBundle\Entity\User $owner
+     */
+    public function setOwner(\Nimbus\ApartmentsBundle\Entity\User $owner)
+    {
+        $this->owner = $owner;
+    }
+
+    /**
+     * Get owner
+     *
+     * @return Nimbus\ApartmentsBundle\Entity\User 
+     */
+    public function getOwner()
+    {
+        return $this->owner;
     }
 }

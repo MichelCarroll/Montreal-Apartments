@@ -2,6 +2,7 @@
 
 namespace Nimbus\ApartmentsBundle\Form\Type;
 
+use Nimbus\ApartmentsBundle\Form\Type\LeaseType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
 
@@ -10,16 +11,27 @@ class ApartmentType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-          ->add('id', 'hidden')
           ->add('title', 'text')
-          ->add('longitude', 'hidden')
-          ->add('latitude', 'hidden')
           ->add('street_address', 'text')
           ->add('postal_code', 'text')
           ->add('apartment_number', 'text')
-          ->add('description', 'textarea');
+          ->add('description', 'textarea')
+                
+          //EMBEDDED
+          ->add('lease', new LeaseType())
+                
+          //HIDDEN
+          ->add('longitude', 'hidden')
+          ->add('latitude', 'hidden');
     }
 
+    public function getDefaultOptions(array $options)
+    {
+        return array(
+            'data_class' => 'Nimbus\ApartmentsBundle\Entity\Apartment',
+        );
+    }
+    
     public function getName()
     {
         return 'apartment';
