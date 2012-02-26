@@ -1,6 +1,20 @@
+{% extends 'NimbusApartmentsBundle::map.html.twig' %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('/bundles/nimbusapartments/js/apartment_form.js') }}" type="text/javascript"></script>
+{% endblock %}
+    
+{% block body %}
 
 <form action="{{ path('new_apartment') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
 
     <input type="submit" />
 </form>
+    
+<div id="apartment_map"></div>
+
+{% endblock %}

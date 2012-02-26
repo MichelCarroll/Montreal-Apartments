@@ -50,29 +50,19 @@ class Apartment extends Entity implements Geolocatable
     protected $slug;
     
     /**
-     * @ORM\Column(type="decimal", scale=3, nullable="true")
+     * @ORM\Column(type="decimal", scale=7, nullable="true")
      */
     protected $longitude;
     
     /**
-     * @ORM\Column(type="decimal", scale=3, nullable="true")
+     * @ORM\Column(type="decimal", scale=7, nullable="true")
      */
     protected $latitude;
     
     /**
      * @ORM\Column(type="string")
      */
-    protected $street_address;
-    
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $postal_code;
-    
-    /**
-     * @ORM\Column(type="string", nullable="true")
-     */
-    protected $apartment_number;
+    protected $address;
 
     /**
      * @ORM\Column(type="text", nullable="true")
@@ -96,6 +86,14 @@ class Apartment extends Entity implements Geolocatable
      * @ORM\JoinColumn(name="lease_id", referencedColumnName="id", nullable=false)
      */
     protected $lease;
+    
+    public function getSummary()
+    {
+      return array(
+        'title' => $this->title,
+        'description' => $this->description
+      );
+    }
     
     /**
      * Get id
@@ -179,63 +177,23 @@ class Apartment extends Entity implements Geolocatable
     }
 
     /**
-     * Set street_address
+     * Set address
      *
-     * @param string $streetAddress
+     * @param string $address
      */
-    public function setStreetAddress($streetAddress)
+    public function setAddress($address)
     {
-        $this->street_address = $streetAddress;
+        $this->address = $address;
     }
 
     /**
-     * Get street_address
+     * Get address
      *
      * @return string 
      */
-    public function getStreetAddress()
+    public function getAddress()
     {
-        return $this->street_address;
-    }
-
-    /**
-     * Set postal_code
-     *
-     * @param string $postalCode
-     */
-    public function setPostalCode($postalCode)
-    {
-        $this->postal_code = $postalCode;
-    }
-
-    /**
-     * Get postal_code
-     *
-     * @return string 
-     */
-    public function getPostalCode()
-    {
-        return $this->postal_code;
-    }
-
-    /**
-     * Set apartment_number
-     *
-     * @param string $apartmentNumber
-     */
-    public function setApartmentNumber($apartmentNumber)
-    {
-        $this->apartment_number = $apartmentNumber;
-    }
-
-    /**
-     * Get apartment_number
-     *
-     * @return string 
-     */
-    public function getApartmentNumber()
-    {
-        return $this->apartment_number;
+        return $this->address;
     }
 
 
@@ -318,4 +276,5 @@ class Apartment extends Entity implements Geolocatable
     {
         return $this->owner;
     }
+
 }

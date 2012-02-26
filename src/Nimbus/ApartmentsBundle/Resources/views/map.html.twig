@@ -1,0 +1,48 @@
+{% extends 'NimbusApartmentsBundle::base.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="http://maps.googleapis.com/maps/api/js?key={{ map.google_key }}&sensor=false&callback=NimApart.gmap_initialize" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+      var NimApart = NimApart || {};
+      
+      NimApart.globals = {
+        'initial': {
+          'lat': {{ map.initial.lat }}, 
+          'lng': {{ map.initial.lng }}, 
+          'zoom': {{ map.initial.zoom }}
+        },
+        'bounds': {
+          'sw': {
+            'lat': {{ map.bounds.sw.lat }}, 
+            'lng': {{ map.bounds.sw.lng }}
+          },
+          'ne': {
+            'lat': {{ map.bounds.ne.lat }}, 
+            'lng': {{ map.bounds.ne.lng }}
+          }
+        },
+        'refreshRate': {{ map.form_refresh_rate }}
+      };
+      
+      NimApart.gmap_initialize = function() {
+  
+        var myOptions = {
+          zoom: NimApart.globals.initial.zoom,
+          center: new google.maps.LatLng(NimApart.globals.initial.lat, NimApart.globals.initial.lng),
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          mapTypeControl: false
+        }
+
+        NimApart.map = new google.maps.Map(document.getElementById("apartment_map"), myOptions);
+        
+        //google.maps.event.addListener(NimApart.map, 'bounds_changed', function() {
+        //  console.log(NimApart.map.getCenter());
+        //});
+
+      }
+
+    </script>
+{% endblock %}

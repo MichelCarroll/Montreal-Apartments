@@ -1,5 +1,19 @@
-<ul>
-{% for apt in apartments %}
-    <li><a href="{{ path('details_browsing', {'slug': apt.slug}) }}">{{ apt.title }}</a></li>
-{% endfor %}
-</ul>
+{% extends 'NimbusApartmentsBundle::map.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('/bundles/nimbusapartments/js/browse.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+    
+    
+{% block body %}
+
+  <ul>
+  {% for apt in apartments %}
+      <li><a href="{{ path('details_browsing', {'slug': apt.slug}) }}">{{ apt.title }}</a></li>
+  {% endfor %}
+  </ul>
+
+{% endblock %}

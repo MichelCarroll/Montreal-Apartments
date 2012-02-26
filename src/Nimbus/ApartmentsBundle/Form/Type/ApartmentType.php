@@ -12,9 +12,7 @@ class ApartmentType extends AbstractType
     {
         $builder
           ->add('title', 'text')
-          ->add('street_address', 'text')
-          ->add('postal_code', 'text')
-          ->add('apartment_number', 'text')
+          ->add('address', 'text')
           ->add('description', 'textarea')
                 
           //EMBEDDED
