@@ -59,6 +59,7 @@ class ApartmentController extends Controller
                   ->getRepository('NimbusApartmentsBundle:Apartment')
                   ->findOneBy(array('slug' => $slug));
     
+    /* @var $apartment Apartment */
     if(!$apartment)
     {
       throw new NotFoundHttpException('Apartment not found.');
@@ -89,9 +90,11 @@ class ApartmentController extends Controller
       }
     }
     
+    
     return $this->render('NimbusApartmentsBundle:Apartment:update.html.twig', array(
       'form' => $form->createView(),
-      'slug' => $slug
+      'slug' => $slug,
+      'point' => $apartment->getGeocoordinate()
     ));
   }
   

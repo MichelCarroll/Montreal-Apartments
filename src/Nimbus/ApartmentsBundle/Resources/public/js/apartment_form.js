@@ -22,7 +22,10 @@ NimApart.pinpointMapAddressFromForm = function() {
       if(resultType != google.maps.GeocoderLocationType.GEOMETRIC_CENTER)
       {
         var point = result[0].geometry.location;
-        NimApart.refreshFormMarker(point);
+        if(point)
+        {
+          NimApart.refreshFormMarker(point);
+        }
       }
     }
   });
@@ -42,7 +45,7 @@ NimApart.refreshFormMarker = function(newPoint) {
     NimApart.formMarker.setMap(NimApart.map);
     
     NimApart.map.panTo(newPoint);
-    NimApart.map.setZoom(14);
+    NimApart.map.setZoom(NimApart.globals.spotlightZoom);
     
     $('#apartment_latitude').val(newPoint.lat());
     $('#apartment_longitude').val(newPoint.lng());

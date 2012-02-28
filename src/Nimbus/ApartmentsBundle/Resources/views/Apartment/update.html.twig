@@ -5,6 +5,16 @@
     {{ parent() }}
 
     <script src="{{ asset('/bundles/nimbusapartments/js/apartment_form.js') }}" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+      
+      var NimApart = NimApart || {};
+      
+      $(document).ready(function() {
+        setTimeout("NimApart.refreshFormMarker(new google.maps.LatLng({{ point.latitude }}, {{ point.longitude }}));", 500);
+      });
+      
+    </script>
 {% endblock %}
     
 {% block body %}

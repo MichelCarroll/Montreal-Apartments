@@ -24,7 +24,8 @@
             'lng': {{ map.bounds.ne.lng }}
           }
         },
-        'refreshRate': {{ map.form_refresh_rate }}
+        'refreshRate': {{ map.form_refresh_rate }},
+        'spotlightZoom': {{ map.spotlight_zoom }}
       };
       
       NimApart.gmap_initialize = function() {
