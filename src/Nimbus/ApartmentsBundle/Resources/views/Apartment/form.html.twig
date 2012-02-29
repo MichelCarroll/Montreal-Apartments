@@ -1,0 +1,50 @@
+
+
+<form class="form-horizontal" action="{{ path('new_apartment') }}" method="post" {{ form_enctype(form) }}>
+        <fieldset>
+          
+          {{ form_errors(form) }}
+          
+          <legend>General</legend>
+  
+            {{ form_row(form.title, 
+              { 
+                'label': 'Headline', 
+                'help' : 'The main selling points of your offer (ex. Renovated 4½ downtown)'
+              }) 
+            }}
+          
+            {{ form_row(form.size, 
+              { 
+                'label': 'Size', 
+                'help' : '# of rooms'
+              }) 
+            }}
+          
+            {{ form_row(form.lease.monthly_price, 
+              { 
+                'label': 'Price', 
+                'help' : '$ / month'
+              }) 
+            }}
+          
+            {{ form_row(form.lease.start_date) }}
+            {{ form_row(form.is_furnished) }}
+            {{ form_row(form.description) }}
+            
+          <legend>Map</legend>
+  
+            {{ form_row(form.address) }}
+            
+          <legend>Photos</legend>
+  
+            {{ form_row(form.file) }}
+          
+          {{ form_rest(form) }}
+          
+          <input type="submit" />
+          
+        </fieldset>
+</form>
+    
+<div id="apartment_map"></div>

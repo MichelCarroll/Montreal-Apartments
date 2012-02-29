@@ -31,3 +31,7 @@ twig:
 
         form_refresh_rate: 1000
         spotlight_zoom: 14
+        
+    form:
+        resources:  
+           - 'NimbusApartmentsBundle:Form:fields.html.twig'

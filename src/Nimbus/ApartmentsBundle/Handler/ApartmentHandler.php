@@ -19,8 +19,8 @@ use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use FOS\UserBundle\Model\UserInterface;
-
-
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class ApartmentHandler
 {
@@ -86,6 +86,13 @@ class ApartmentHandler
   public function onUserRegistered(UserEvent $event) 
   {
     $this->resetOwnership($event->getUser());
+  }
+  
+  public function onUserLogin(InteractiveLoginEvent $event) 
+  {
+    /* @var $token TokenInterface */
+    $token = $event->getAuthenticationToken();
+    $this->resetOwnership($token->getUser());
   }
   
   

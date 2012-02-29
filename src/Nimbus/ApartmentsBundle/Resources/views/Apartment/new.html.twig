@@ -9,12 +9,9 @@
     
 {% block body %}
 
-<form action="{{ path('new_apartment') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-
-    <input type="submit" />
-</form>
+    <h1>Publish your apartment</h1>
+    <p>Use this form to show off your apartment to Montreal</p>
     
-<div id="apartment_map"></div>
+    {% include 'NimbusApartmentsBundle:Apartment:form.html.twig' %}
 
 {% endblock %}

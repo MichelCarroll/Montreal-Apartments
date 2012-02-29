@@ -7,22 +7,49 @@ use Symfony\Component\Form\FormBuilder;
 
 class LeaseType extends AbstractType
 {
-    public function buildForm(FormBuilder $builder, array $options)
-    {
-        $builder
-          ->add('start_date', 'date')
-          ->add('monthly_price', 'money');
-    }
 
-    public function getDefaultOptions(array $options)
+  public function buildForm(FormBuilder $builder, array $options)
+  {
+    
+    $builder
+            ->add('start_date', 'choice', array(
+                'choices' => $this->getPossibleDateList(),
+                'required' => false,
+                'attr' => array('class' => 'span2')))
+            
+            ->add('monthly_price', 'money');
+  }
+  
+  private function getPossibleDateList()
+  {
+    $month = date("m",strtotime(time()));
+    
+    $months = array();
+    
+    $time_value = mktime(0, 0, 0, $month);
+    $months[$time_value] = 'Immediately';
+    
+    for($i = 1; $i <= 6; $i++)
     {
-        return array(
-            'data_class' => 'Nimbus\ApartmentsBundle\Entity\Lease',
-        );
+      $month_int = $i + $month;
+      $time_value = mktime(0, 0, 0, $month_int);
+      $months[$time_value] = date("M",mktime(0, 0, 0, $month_int));
+      $months[$time_value] .= ' 1st';
     }
     
-    public function getName()
-    {
-        return 'lease';
-    }
+    return $months;
+  }
+
+  public function getDefaultOptions(array $options)
+  {
+    return array(
+        'data_class' => 'Nimbus\ApartmentsBundle\Entity\Lease',
+    );
+  }
+
+  public function getName()
+  {
+    return 'lease';
+  }
+
 }

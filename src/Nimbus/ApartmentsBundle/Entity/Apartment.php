@@ -5,13 +5,14 @@ namespace Nimbus\ApartmentsBundle\Entity;
 use Nimbus\BaseBundle\Entity\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Nimbus\ApartmentsBundle\Helper\UrlHelper;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="apartment")
  * @ORM\Entity(repositoryClass="Nimbus\ApartmentsBundle\Repository\ApartmentRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Apartment extends Entity implements Geolocatable
 {
@@ -27,6 +28,18 @@ class Apartment extends Entity implements Geolocatable
      * @ORM\Column(type="string")
      */
     protected $title;
+    
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $is_furnished = false;
+    
+    
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $size;
+    
     
     /**
      * @ORM\ManyToOne(targetEntity="User")
@@ -51,11 +64,13 @@ class Apartment extends Entity implements Geolocatable
     
     /**
      * @ORM\Column(type="decimal", scale=7, nullable="true")
+     * @Assert\NotBlank
      */
     protected $longitude;
     
     /**
      * @ORM\Column(type="decimal", scale=7, nullable="true")
+     * @Assert\NotBlank
      */
     protected $latitude;
     
@@ -69,6 +84,56 @@ class Apartment extends Entity implements Geolocatable
      */
     protected $description;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $image_path;
+    
+    
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (null !== $this->file) {
+            // do whatever you want to generate a unique name
+            $this->image_path = uniqid().'.'.$this->file->guessExtension();
+        }
+    }
+    
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if ($file = $this->getAbsolutePath()) {
+            unlink($file);
+        }
+    }
+    
+    
+    public function getAbsolutePath()
+    {
+        return null === $this->image_path ? null : $this->getUploadRootDir().'/'.$this->image_path;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->image_path ? null : $this->getUploadDir().'/'.$this->image_path;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded documents should be saved
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view.
+        return 'uploads/apartments';
+    }
     
     /**
      * @return Geocoordinate
@@ -277,4 +342,90 @@ class Apartment extends Entity implements Geolocatable
         return $this->owner;
     }
 
+
+    /**
+     * Set path
+     *
+     * @param string $image_path
+     */
+    public function setImagePath($image_path)
+    {
+        $this->image_path = $image_path;
+    }
+    
+    /**
+     * @Assert\Image(maxSize="1M")
+     */
+    public $file;
+    
+    
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function uploadPhoto()
+    {
+      if (null === $this->file) {
+            return;
+      }
+
+      // if there is an error when moving the file, an exception will
+      // be automatically thrown by move(). This will properly prevent
+      // the entity from being persisted to the database on error
+      $this->file->move($this->getUploadRootDir(), $this->image_path);
+
+      unset($this->file);
+    }
+    
+    
+
+    /**
+     * Set is_furnished
+     *
+     * @param boolean $isFurnished
+     */
+    public function setIsFurnished($isFurnished)
+    {
+        $this->is_furnished = $isFurnished;
+    }
+
+    /**
+     * Get is_furnished
+     *
+     * @return boolean 
+     */
+    public function getIsFurnished()
+    {
+        return $this->is_furnished;
+    }
+
+    /**
+     * Set size
+     *
+     * @param string $size
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+    }
+
+    /**
+     * Get size
+     *
+     * @return string 
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    /**
+     * Get image_path
+     *
+     * @return string 
+     */
+    public function getImagePath()
+    {
+        return $this->image_path;
+    }
 }

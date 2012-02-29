@@ -6,16 +6,25 @@
         
         {% block stylesheets %}
             <link href="{{ asset('/bundles/nimbusapartments/css/main.css') }}" type="text/css" rel="stylesheet" />
+            <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" type="text/css" rel="stylesheet" />
+            <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" type="text/css" rel="stylesheet" />
         {% endblock %}
             
+        <link rel="shortcut icon" href="http://twitter.github.com/bootstrap/examples/images/favicon.ico">
+        <link rel="apple-touch-icon" href="http://twitter.github.com/bootstrap/examples/images/apple-touch-icon.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="http://twitter.github.com/bootstrap/examples/images/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="http://twitter.github.com/bootstrap/examples/images/apple-touch-icon-114x114.png">
+    
     </head>
     <body>
+        {% include "NimbusApartmentsBundle::nav.html.twig" %}
+        
+        <div class="container">
+            {% block body %}{% endblock %}
+        </div>
+      
         {% block javascripts %}
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
         {% endblock %}
-            
-        <div id="content">
-            {% block body %}{% endblock %}
-        </div>
     </body>
 </html>

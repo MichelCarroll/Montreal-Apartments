@@ -14,6 +14,25 @@ class ApartmentType extends AbstractType
           ->add('title', 'text')
           ->add('address', 'text')
           ->add('description', 'textarea')
+          ->add('file')
+                
+          ->add('is_furnished', 'choice', array(
+              'choices' => array( 
+                  0 => 'no', 1 => 'yes'),
+              'required' => true,
+              'expanded' => true))
+                
+          ->add('size', 'choice', array(
+              'choices' => array(
+                  'Bachelor',
+                  '2½',
+                  '3½',
+                  '4½',
+                  '5½',
+                  '6½'),
+              'required' => false,
+              'attr' => array('class' => 'input-small')
+          ))
                 
           //EMBEDDED
           ->add('lease', new LeaseType())
