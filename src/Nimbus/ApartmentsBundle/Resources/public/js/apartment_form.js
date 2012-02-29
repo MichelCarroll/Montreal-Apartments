@@ -3,6 +3,18 @@ var NimApart = NimApart || {};
 
 NimApart.geocodeAddr = 'http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=';
 
+NimApart.postInitialize = function() {
+  
+  NimApart.map.setOptions({
+    draggable: false, 
+    panControl: false, 
+    rotateControl: false, 
+    scaleControl: false,
+    streetViewControl: false
+  });
+  
+};
+
 NimApart.pinpointMapAddressFromForm = function() {
   
   var address_string = $('#apartment_address').val();
@@ -22,15 +34,40 @@ NimApart.pinpointMapAddressFromForm = function() {
       if(resultType != google.maps.GeocoderLocationType.GEOMETRIC_CENTER)
       {
         var point = result[0].geometry.location;
-        if(point)
+        if(point && NimApart.pointInsideBounds(point))
         {
           NimApart.refreshFormMarker(point);
+          
+          $("#apartment_map").attr('class', '');
+          NimApart.map.setOptions({
+            draggable: true
+          });
         }
       }
     }
   });
   
 };
+
+NimApart.pointInsideBounds = function(point) {
+  var swLat = NimApart.globals.bounds.sw.lat;
+  var neLat = NimApart.globals.bounds.ne.lat;
+  var swLng = NimApart.globals.bounds.sw.lng;
+  var neLng = NimApart.globals.bounds.ne.lng;
+  
+  if(point.lat() < swLat || point.lat() > neLat)
+  {
+    return false;
+  }
+  
+  if(point.lng() < swLng || point.lng() > neLng)
+  {
+    return false;
+  }
+  
+  return true;
+};
+
 
 NimApart.refreshFormMarker = function(newPoint) {
       

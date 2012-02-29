@@ -39,9 +39,10 @@
 
         NimApart.map = new google.maps.Map(document.getElementById("apartment_map"), myOptions);
         
-        //google.maps.event.addListener(NimApart.map, 'bounds_changed', function() {
-        //  console.log(NimApart.map.getCenter());
-        //});
+        if(typeof NimApart.postInitialize == 'function')
+        {
+          NimApart.postInitialize();
+        }
 
       }
 

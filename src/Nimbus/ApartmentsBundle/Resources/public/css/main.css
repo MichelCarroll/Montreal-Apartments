@@ -1,3 +1,6 @@
 body { padding-top: 80px; }
 
-#apartment_map { width: 500px; height: 500px; }
+#apartment_map { width: 400px; height: 400px; }
+.semihidden { opacity:0.4; filter:alpha(opacity=40); /* For IE8 and earlier */}
+
+textarea.big_textbox { width: 350px; height: 150px; }

@@ -12,8 +12,15 @@ class ApartmentType extends AbstractType
     {
         $builder
           ->add('title', 'text')
-          ->add('address', 'text')
-          ->add('description', 'textarea')
+                
+          ->add('address', 'text', array(
+              'attr' => array('class' => 'span4')
+          ))
+                
+          ->add('description', 'textarea', array(
+              'attr' => array('class' => 'big_textbox')
+          ))
+                
           ->add('file')
                 
           ->add('is_furnished', 'choice', array(

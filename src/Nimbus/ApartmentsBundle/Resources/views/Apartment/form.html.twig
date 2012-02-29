@@ -29,22 +29,46 @@
             }}
           
             {{ form_row(form.lease.start_date) }}
-            {{ form_row(form.is_furnished) }}
-            {{ form_row(form.description) }}
+
+            {{ form_row(form.is_furnished, 
+              { 
+                'label': 'Is Furnished?'
+              }) 
+            }}
+
+            {{ form_row(form.description, 
+              { 
+                'label': 'Details', 
+                'help' : 'Any information not included elsewhere'
+              }) 
+            }}
             
           <legend>Map</legend>
   
-            {{ form_row(form.address) }}
-            
+          <div class="row">
+            <div class="span6">
+              {{ form_row(form.address, 
+                { 
+                  'label': 'Address', 
+                  'help' : '(ex. 5789 Boulanger Avenue, K2N 9M3, Verdun)'
+                }) 
+              }}
+            </div>
+            <div class="span6">
+              <div id="apartment_map" class="semihidden"></div>
+            </div>
+          </div>
+
           <legend>Photos</legend>
   
             {{ form_row(form.file) }}
           
           {{ form_rest(form) }}
           
-          <input type="submit" />
+          <button class="btn" type="submit">
+            Save Apartment
+          </button>
           
         </fieldset>
 </form>
     
-<div id="apartment_map"></div>
