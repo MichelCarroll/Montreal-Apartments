@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!-- saved from url=(0066)http://twitter.github.com/bootstrap/examples/starter-template.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Bootstrap, from Twitter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="http://twitter.github.com/bootstrap/examples/images/favicon.ico">
+    <link rel="apple-touch-icon" href="http://twitter.github.com/bootstrap/examples/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="http://twitter.github.com/bootstrap/examples/images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="http://twitter.github.com/bootstrap/examples/images/apple-touch-icon-114x114.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="http://twitter.github.com/bootstrap/examples/starter-template.html#">Project name</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="index.html">Home</a></li>
+              <li><a href="http://twitter.github.com/bootstrap/examples/starter-template.html#about">About</a></li>
+              <li><a href="http://twitter.github.com/bootstrap/examples/starter-template.html#contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      
+      <h1>Publish your apartment</h1>
+      <p>Use this form to show Montreal how great your lease offer is!</p>
+      <form class="form-horizontal">
+        <fieldset>
+          <legend>General</legend>
+          <div class="control-group ">
+            <label class="control-label " for="input01">Headline</label>
+            <div class="controls ">
+              <input type="text" class="input-xlarge" id="input01">&nbsp;<em>*</em>
+              <p class="help-block">The main selling points of your offer.<br />
+                (ex. Renovated 4&half; downtown)</p>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="input01">Size</label>
+            <div class="controls">
+              <select id="input01" class="span1">
+                <option selected="selected">&nbsp;</option>
+                <option>1&half;</option>
+                <option>2&half;</option>
+                <option>3&half;</option>
+                <option>4&half;</option>
+                <option>5&half;</option>
+                <option>6&half;</option>
+              </select>
+              <p class="help-block"># of rooms</p>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="input01">Price</label>
+            <div class="controls">
+              <div class="input-append">
+                <input type="text" class="span1" id="input01" />
+                <span class="add-on">.00</span>
+              </div>
+              <p class="help-block">$ / month</p>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="input01">Available When?</label>
+            <div class="controls">
+              <select id="input01" class="span2">
+                <option>&nbsp;</option>
+                <option>Immediately</option>
+                <option>April 1st</option>
+                <option>May 1st</option>
+                <option>June 1st</option>
+                <option>July 1st</option>
+                <option>August 1st</option>
+              </select>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="input01">Furnished?</label>
+            <div class="controls">
+              <label class="radio inline">
+                <input type="radio" id="inlineCheckbox1" value="option1"> yes
+              </label>
+              <label class="radio inline">
+                <input type="radio" id="inlineCheckbox1" value="option1" checked="checked"> no
+              </label>
+            </div>
+          </div>
+          <div class="control-group ">
+            <label class="control-label " for="input01">Details</label>
+            <div class="controls ">
+              <textarea class="span4" rows="5"></textarea>
+              <p class="help-block">Any important information about the apartment or the lease</p>
+            </div>
+          </div>
+          
+          
+          <legend>Map</legend>
+          <div class="row">
+            <div class="span6">
+              <div class="control-group ">
+                <label class="control-label " for="input01">Address</label>
+                <div class="controls ">
+                  <input type="text" class="input-xlarge" id="input01">&nbsp;<em>*</em>
+                  <p class="help-block">(ex. 5363 Lasalle Boul. H4H 1P2, Verdun)</p>
+                </div>
+              </div>
+            </div>
+            <div class="span6">
+              <iframe width="250" height="250" src="http://maps.google.ca/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=montreal&amp;aq=&amp;sll=49.891235,-97.15369&amp;sspn=37.806916,107.138672&amp;ie=UTF8&amp;hq=&amp;hnear=Montreal,+Communaut%C3%A9-Urbaine-de-Montr%C3%A9al,+Quebec&amp;t=m&amp;z=11&amp;ll=45.50867,-73.553992&amp;output=embed"></iframe>
+            </div>
+          </div>
+          
+          
+        </fieldset>
+      </form>
+      
+      
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./assets/jquery.js"></script>
+    <script src="./assets/bootstrap-transition.js"></script>
+    <script src="./assets/bootstrap-alert.js"></script>
+    <script src="./assets/bootstrap-modal.js"></script>
+    <script src="./assets/bootstrap-dropdown.js"></script>
+    <script src="./assets/bootstrap-scrollspy.js"></script>
+    <script src="./assets/bootstrap-tab.js"></script>
+    <script src="./assets/bootstrap-tooltip.js"></script>
+    <script src="./assets/bootstrap-popover.js"></script>
+    <script src="./assets/bootstrap-button.js"></script>
+    <script src="./assets/bootstrap-collapse.js"></script>
+    <script src="./assets/bootstrap-carousel.js"></script>
+    <script src="./assets/bootstrap-typeahead.js"></script>
+
+  
+
+</body></html>
