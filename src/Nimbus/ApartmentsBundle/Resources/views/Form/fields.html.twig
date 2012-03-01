@@ -240,11 +240,11 @@
 
 {% block field_row %}
 {% spaceless %}
-    <div class="control-group">
+    <div class="control-group {{ form.vars.errors|length > 0 ? 'error' : '' }}">
         {{ form_label(form, label|default(null), { 'attr': {'class': 'control-label'} }) }}
         <div class="controls">
-          {{ form_errors(form) }}
           {{ form_widget(form) }}
+          {{ block('form_inline_error') }}
           {% if help is defined %}
               <p class="help-block">{{ help }}</p>
           {% endif %}
@@ -252,6 +252,16 @@
     </div>
 {% endspaceless %}
 {% endblock field_row %}
+
+
+{% block form_inline_error %}
+    {% if form.vars.errors|length > 0 %}
+      {% for error in form.vars.errors %}
+        <span class="help-inline">{{ error.messageTemplate }}</span>
+      {% endfor %}
+    {% endif %}
+{% endblock form_inline_error %}
+
 
 {% block hidden_row %}
     {{ form_widget(form) }}
@@ -268,11 +278,11 @@
 {% block field_errors %}
 {% spaceless %}
     {% if errors|length > 0 %}
-    <ul>
-        {% for error in errors %}
-            <li>{{ error.messageTemplate|trans(error.messageParameters, 'validators') }}</li>
-        {% endfor %}
-    </ul>
+      {% for error in errors %}
+        <div class="alert alert-error">
+          <p><strong>Oops!</strong> {{ error.messageTemplate|trans(error.messageParameters, 'validators') }}</p>
+        </div>
+      {% endfor %}
     {% endif %}
 {% endspaceless %}
 {% endblock field_errors %}

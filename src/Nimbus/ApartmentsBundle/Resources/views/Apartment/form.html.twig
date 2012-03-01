@@ -1,15 +1,15 @@
 
 
-<form class="form-horizontal" action="{{ path('new_apartment') }}" method="post" {{ form_enctype(form) }}>
+          {{ form_errors(form) }}
+<form novalidate="novalidate" class="form-horizontal" action="{{ path('new_apartment') }}" method="post" {{ form_enctype(form) }}>
         <fieldset>
           
-          {{ form_errors(form) }}
           
           <legend>General</legend>
   
             {{ form_row(form.title, 
               { 
-                'label': 'Headline', 
+                'label': 'Headline *', 
                 'help' : 'The main selling points of your offer (ex. Renovated 4½ downtown)'
               }) 
             }}
@@ -43,13 +43,23 @@
               }) 
             }}
             
+          <legend>Photo</legend>
+  
+          
+            {{ form_row(form.file, 
+              { 
+                'label': 'Image File', 
+                'help' : '".jpg", ".png" or ".gif" file extension'
+              }) 
+            }}
+            
           <legend>Map</legend>
   
           <div class="row">
             <div class="span6">
               {{ form_row(form.address, 
                 { 
-                  'label': 'Address', 
+                  'label': 'Address *', 
                   'help' : '(ex. 5789 Boulanger Avenue, K2N 9M3, Verdun)'
                 }) 
               }}
@@ -58,16 +68,13 @@
               <div id="apartment_map" class="semihidden"></div>
             </div>
           </div>
-
-          <legend>Photos</legend>
-  
-            {{ form_row(form.file) }}
           
           {{ form_rest(form) }}
           
-          <button class="btn" type="submit">
-            Save Apartment
-          </button>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save apartment</button>
+            <button class="btn">Cancel</button>
+          </div>
           
         </fieldset>
 </form>

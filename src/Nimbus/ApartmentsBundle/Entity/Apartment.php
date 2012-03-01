@@ -58,19 +58,18 @@ class Apartment extends Entity implements Geolocatable
     }
     
     /**
-     * @ORM\Column(type="string", unique="true")
+     * @ORM\Column(type="string", unique="true", nullable="true")
      */
     protected $slug;
     
     /**
      * @ORM\Column(type="decimal", scale=7, nullable="true")
-     * @Assert\NotBlank
      */
     protected $longitude;
     
     /**
      * @ORM\Column(type="decimal", scale=7, nullable="true")
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="The apartment's location has to be entered")
      */
     protected $latitude;
     
