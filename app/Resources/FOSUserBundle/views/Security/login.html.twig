@@ -1,0 +1,40 @@
+{% extends 'NimbusApartmentsBundle::base.html.twig' %}
+
+{% block body %}
+
+<h1>Login</h1>
+
+<br />
+{% if error %}
+    <div class="alert alert-error">{{ error|trans({}, 'FOSUserBundle') }}</div>
+{% endif %}
+    
+    
+<form novalidate="novalidate" class="form-horizontal"  action="{{ path("fos_user_security_check") }}" method="post" >
+    <fieldset>    
+      
+      <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+      
+      <div class="control-group ">
+        <label class="control-label" for="_username">Username *</label>
+        <div class="controls">
+          <input type="text" id="_username" name="_username" value="{{ last_username }}">
+        </div>
+      </div>
+      
+      
+      <div class="control-group ">
+        <label class="control-label" for="_password">Password *</label>
+        <div class="controls">
+          <input type="password" id="_password" name="_password">
+        </div>
+      </div>
+      
+    <div class="form-actions">
+      <button type="submit" id="_submit" name="_submit" class="btn btn-primary">Login</button>
+    </div>
+        
+    </fieldset>
+</form>
+
+{% endblock body %}

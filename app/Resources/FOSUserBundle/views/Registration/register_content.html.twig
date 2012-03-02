@@ -1,0 +1,42 @@
+
+{{ form_errors(form) }}
+
+<form novalidate="novalidate" class="form-horizontal" action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST">
+    <fieldset>    
+      
+      {{ form_row(form.username, 
+        { 
+          'label': 'Username *', 
+          'help' : 'Choose a name that will publicly represent you to others'
+        }) 
+      }}
+      
+      
+      {{ form_row(form.email, 
+        { 
+          'label': 'Email *', 
+          'help' : 'Note: Your email will never be shown to the public without your approval'
+        }) 
+      }}
+        
+      {{ form_row(form.plainPassword.first, 
+        { 
+          'label': 'Password *', 
+          'help' : '2 to 16 alphanumeric characters'
+        }) 
+      }}
+      
+      {{ form_row(form.plainPassword.second, 
+        { 
+          'label': 'Confirmation *', 
+          'help' : 'Please enter your password again'
+        }) 
+      }}
+      {{ form_rest(form) }}
+      
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Register</button>
+    </div>
+        
+    </fieldset>
+</form>

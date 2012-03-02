@@ -39,6 +39,8 @@ class ApartmentController extends Controller
 
         if($this->get('security.context')->getToken() instanceof AnonymousToken)
         {
+          $this->get('session')->setFlash('notice', 
+                  'Thank you for registering your apartment. However, you need to register to the website in order to finalize the registration.');
           return $this->redirect($this->generateUrl('fos_user_registration_register'));
         }
         

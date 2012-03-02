@@ -34,3 +34,6 @@ delete_apartment:
   defaults: { _controller: NimbusApartmentsBundle:Apartment:delete }
   requirements:
     _method: POST
+    
+    
+    

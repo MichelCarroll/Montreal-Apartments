@@ -19,8 +19,16 @@
         {% include "NimbusApartmentsBundle::nav.html.twig" %}
         
         <div class="container">
-            {% block body %}{% endblock %}
-        </div>
+          
+          {% for key, flash in app.session.getFlashes() %}
+              <div class="alert alert-{{ key }}">
+                {{ flash }}
+              </div>
+          {% endfor %}
+           
+          {% block body %}{% endblock %}
+        
+         </div>
       
         {% block javascripts %}
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
