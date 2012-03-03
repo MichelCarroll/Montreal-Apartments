@@ -10,7 +10,8 @@ NimApart.postInitialize = function() {
     panControl: false, 
     rotateControl: false, 
     scaleControl: false,
-    streetViewControl: false
+    streetViewControl: false,
+    mapTypeControl: false
   });
   
 };

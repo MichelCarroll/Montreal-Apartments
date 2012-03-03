@@ -4,16 +4,37 @@
     {{ parent() }}
 
     <script src="{{ asset('/bundles/nimbusapartments/js/browse.js') }}" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+
+      var NimApart = NimApart || {};
+
+      NimApart.map_apartments = 
+      [
+        {% for apt in apartments %}
+          {
+            'link': "{{ path('details_browsing', {'slug': apt.slug}) }}",
+            'title': "{{ apt.title }}",
+            'lat': {{ (apt.latitude?apt.latitude:0) }},
+            'lng': {{ (apt.longitude?apt.longitude:0) }}
+          } {{ (loop.last?'':',') }}
+        {% endfor %}
+      ];
+    </script>
+  
+      
 {% endblock %}
 
     
     
 {% block body %}
-
-  <ul>
-  {% for apt in apartments %}
-      <li><a href="{{ path('details_browsing', {'slug': apt.slug}) }}">{{ apt.title }}</a></li>
-  {% endfor %}
-  </ul>
+    
+  <div class="hero-unit">
+    <h1>Montreal Cribs</h1>
+    <p>Find your perfect Montreal apartment by browsing our map of availables ones.</p>
+  </div>
+    
+  <div id="apartment_map" style="width:960px; height:600px;"></div>      
+  
 
 {% endblock %}
