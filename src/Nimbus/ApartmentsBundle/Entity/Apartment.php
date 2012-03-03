@@ -372,7 +372,7 @@ class Apartment extends Entity implements Geolocatable
       // be automatically thrown by move(). This will properly prevent
       // the entity from being persisted to the database on error
       $this->file->move($this->getUploadRootDir(), $this->image_path);
-
+      
       unset($this->file);
     }
     

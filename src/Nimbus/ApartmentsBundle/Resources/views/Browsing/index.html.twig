@@ -16,7 +16,9 @@
             'link': "{{ path('details_browsing', {'slug': apt.slug}) }}",
             'title': "{{ apt.title }}",
             'lat': {{ (apt.latitude?apt.latitude:0) }},
-            'lng': {{ (apt.longitude?apt.longitude:0) }}
+            'lng': {{ (apt.longitude?apt.longitude:0) }},
+            'description': "{{ apt.description }}",
+            'image_source': "{{ image(apartments[0].getAbsolutePath()).cropResize(260,180) }}"
           } {{ (loop.last?'':',') }}
         {% endfor %}
       ];
@@ -28,7 +30,6 @@
     
     
 {% block body %}
-    
   <div class="hero-unit">
     <h1>Montreal Cribs</h1>
     <p>Find your perfect Montreal apartment by browsing our map of availables ones.</p>

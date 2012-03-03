@@ -35,7 +35,7 @@ NimApart.addMarkers = function() {
 NimApart.setMarkerActions = function(marker, data) {
   
   var infowindow = new google.maps.InfoWindow({
-      content: NimApart.getMarkerContent(data)
+      content: NimApart.apartDataToBubbleContent(data)
   });
 
   google.maps.event.addListener(marker, 'click', function() {
@@ -51,8 +51,13 @@ NimApart.setMarkerActions = function(marker, data) {
   });
 };
 
-NimApart.getMarkerContent = function(data) {
-  var contentHtml = "";
-  contentHtml += "<h2>"+data.title+"</h2>";
+NimApart.apartDataToBubbleContent = function(data) {
+  var contentHtml = 
+    '<div class="thumbnail">\n\
+    <img src="'+data.image_source+'" alt="">\n\
+    <div class="caption">\n\
+    <h5>'+data.title+'</h5>\n\
+    <p>'+data.description+'</p>\n\
+    </div></div>';
   return contentHtml;
 };

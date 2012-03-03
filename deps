@@ -72,3 +72,7 @@
 [FOSUserBundle]
     git=git://github.com/FriendsOfSymfony/FOSUserBundle.git
     target=bundles/FOS/UserBundle
+
+[GregwarImageBundle]
+    git=git://github.com/Gregwar/ImageBundle.git
+    target=/bundles/Gregwar/ImageBundle
