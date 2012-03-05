@@ -29,12 +29,11 @@ class LeaseType extends AbstractType
     $time_value = date('Y-m-d', mktime(0, 0, 0, $month, 1));
     $months[$time_value] = 'Immediately';
     
-    for($i = 1; $i <= 6; $i++)
+    for($i = 1; $i <= 8; $i++)
     {
       $month_int = ($i + $month) % 12;
       $time_value = date('Y-m-d', mktime(0, 0, 0, $month_int, 1));
-      $months[$time_value] = date("M", mktime(0, 0, 0, $month_int, 1));
-      $months[$time_value] .= ' 1st';
+      $months[$time_value] = date("F Y", mktime(0, 0, 0, $month_int, 1));
     }
     
     return $months;

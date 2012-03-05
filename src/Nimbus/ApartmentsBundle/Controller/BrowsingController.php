@@ -44,7 +44,7 @@ class BrowsingController extends Controller
   {
     $apartment = $this->getDoctrine()
             ->getRepository('NimbusApartmentsBundle:Apartment')
-            ->findOneBy(array('slug' => $slug));
+            ->getBySlug($slug);
     
     if(!$apartment)
     {

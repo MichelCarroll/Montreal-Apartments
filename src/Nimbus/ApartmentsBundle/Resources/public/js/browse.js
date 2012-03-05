@@ -21,7 +21,7 @@ NimApart.addMarkers = function() {
     var apt = NimApart.map_apartments[x];
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(apt.lat, apt.lng),
-      title: apt.title
+      //title: apt.title
     });
     
     marker.setMap(NimApart.map);

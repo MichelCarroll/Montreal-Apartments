@@ -280,6 +280,19 @@ class Apartment extends Entity implements Geolocatable
     {
         return $this->description;
     }
+    
+    public function getShortenedDescription($max_length = 100, $trailing = '...')
+    {
+      $raw_desc = preg_replace('/[^a-zA-Z0-9\s]/', '', strip_tags($this->description));
+      $len = strlen($raw_desc);
+      
+      if($len > $max_length)
+      {
+        $raw_desc = substr($raw_desc, 0, $max_length) . $trailing;
+      }
+      
+      return $raw_desc;
+    }
 
     /**
      * Set lease

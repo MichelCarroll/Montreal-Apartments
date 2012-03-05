@@ -31,12 +31,12 @@ class ApartmentType extends AbstractType
                 
           ->add('size', 'choice', array(
               'choices' => array(
-                  'Bachelor',
-                  '2½',
-                  '3½',
-                  '4½',
-                  '5½',
-                  '6½'),
+                  '1½' => 'Bachelor',
+                  '2½' => '2½',
+                  '3½' => '3½',
+                  '4½' => '4½',
+                  '5½' => '5½',
+                  '6½' => '6½'),
               'required' => false,
               'attr' => array('class' => 'input-small')
           ))

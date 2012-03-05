@@ -19,12 +19,13 @@
     
 {% block body %}
 
-<form action="{{ path('update_apartment', { 'slug' : slug }) }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-
-    <input type="submit" />
-</form>
-
-<div id="apartment_map"></div>
+    <h1>Update your apartment</h1>
+    
+    {{ form_errors(form) }}
+    <form novalidate="novalidate" class="form-horizontal" action="{{ path('update_apartment', {'slug': slug}) }}" method="post" {{ form_enctype(form) }}>
+       <fieldset>
+          {% include 'NimbusApartmentsBundle:Apartment:form.html.twig' %}
+       </fieldset>
+    </form>
     
 {% endblock %}

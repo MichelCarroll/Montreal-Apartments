@@ -81,7 +81,8 @@ class Lease extends Entity
      */
     public function getStartDate()
     {
-        return $this->start_date;
+        /* @var $start_date \DateTime */
+        return date('Y-m-d', $this->start_date->getTimestamp());
     }
 
     /**

@@ -1,6 +1,7 @@
 body { padding-top: 80px; padding-bottom: 120px; }
 
 #apartment_map img{max-width:none}
+#apartment_map .thumbnail {max-width: 260px;}
 .semihidden { opacity:0.4; filter:alpha(opacity=40); /* For IE8 and earlier */}
 .hero-unit { padding: 40px !important;}
 .hero-unit h1 { font-size: 4em !important;  }

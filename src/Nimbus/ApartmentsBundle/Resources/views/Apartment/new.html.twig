@@ -12,6 +12,11 @@
     <h1>Publish your apartment</h1>
     <p>Use this form to show off your apartment to Montreal</p>
     
-    {% include 'NimbusApartmentsBundle:Apartment:form.html.twig' %}
-
+    {{ form_errors(form) }}
+    <form novalidate="novalidate" class="form-horizontal" action="{{ path('new_apartment') }}" method="post" {{ form_enctype(form) }}>
+       <fieldset>
+          {% include 'NimbusApartmentsBundle:Apartment:form.html.twig' %}
+       </fieldset>
+    </form>
+    
 {% endblock %}

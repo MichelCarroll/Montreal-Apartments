@@ -18,8 +18,28 @@ class ApartmentRepository extends EntityRepository
           ->createQuery(
             'SELECT a FROM NimbusApartmentsBundle:Apartment a 
               JOIN a.owner u
+              JOIN a.lease l
               WHERE u.enabled = 1'
             )
           ->getResult();
+  }
+  
+  
+  
+  public function getBySlug($slug)
+  {
+    $result =  
+      $this->createQueryBuilder('apartment')
+        ->select('apartment, lease')
+        ->join('apartment.owner', 'owner')
+        ->join('apartment.lease', 'lease')
+        ->where('owner.enabled = 1')
+        ->andWhere('apartment.slug = :slug')
+        ->setParameter('slug', $slug)
+        ->setMaxResults(1)
+        ->getQuery()
+        ->execute();
+
+    return count($result)?$result[0]:null;
   }
 }
