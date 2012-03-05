@@ -1,5 +1,9 @@
 {% extends 'NimbusApartmentsBundle::base.html.twig' %}
 
 {% block body %}
-
+  
+  <h1>Success!</h1>
+  
+  <p><a href="{{ path('details_browsing', {'slug': apartment.slug }) }}">Click here</a> to view the apartment</p>
+  
 {% endblock %}

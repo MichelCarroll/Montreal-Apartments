@@ -6,12 +6,17 @@
   <thead>
     <tr>
       <th>Apartments</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     {% for apt in apartments %}
     <tr>
-      <td><a href="{{ path('update_apartment', {'slug': apt.slug}) }}">{{ apt.title }}</a></td>
+      <td><a href="{{ path('details_browsing', {'slug': apt.slug}) }}">{{ apt.title }}</a></td>
+      <td class="actions">
+        <a href="{{ path('update_apartment', {'slug': apt.slug}) }}" class="btn btn-primary btn-mini">Edit</a>
+        <a href="{{ path('delete_apartment', {'slug': apt.slug}) }}" class="btn btn-danger btn-mini">Delete</a>
+      </td>
     </tr>
     {% endfor %}
   </tbody>

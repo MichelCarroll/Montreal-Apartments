@@ -7,3 +7,5 @@ body { padding-top: 80px; padding-bottom: 120px; }
 .hero-unit h1 { font-size: 4em !important;  }
 .apart-details .row { margin: 12px 0; line-height: 30px; }
 textarea.big_textbox { width: 350px; height: 150px; }
+.btn.back { margin-bottom: 20px; }
+.table .actions a { margin-right: 10px; }

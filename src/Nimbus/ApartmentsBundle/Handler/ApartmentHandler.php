@@ -57,8 +57,13 @@ class ApartmentHandler
   public function register(Apartment $apartment)
   {
     $apartment = $this->saveApartment($apartment);
+    $user = $this->security_context->getToken()->getUser();
     
-    if(!$this->setCurrentUserAsOwner($apartment))
+    if(is_object($user))
+    {
+      $this->setUserAsOwner($user, $apartment);
+    }
+    else
     {
       $this->request->getSession()->set(
         self::ANON_APARTMENT_SESSION, $apartment->getId());
@@ -81,6 +86,17 @@ class ApartmentHandler
     return $apartment;
   }
   
+  /**
+   * Deletes an existing apartment
+   * 
+   * @param Apartment $apartment
+   * @return Apartment 
+   */
+  public function delete(Apartment $apartment)
+  {
+    $this->em->remove($apartment);
+    $this->em->flush();
+  }
   
   
   public function onUserRegistered(UserEvent $event) 
@@ -107,17 +123,9 @@ class ApartmentHandler
         'NimbusApartmentsBundle:Apartment', 
         $anon_apartment_id);
       
-      $this->applyAclToApartment($user, $apartment);
-      
-      /* @var $apartment Apartment */
-      $apartment->setOwner($user);
-      
-      $this->em->persist($apartment);
-      $this->em->persist($user);
-      $this->em->flush();
+      $this->setUserAsOwner($user, $apartment);
     }
   }
-  
   
   /**
    * Assigns current user to apartment
@@ -125,16 +133,17 @@ class ApartmentHandler
    * @param Apartment $apartment
    * @return bool Success 
    */
-  private function setCurrentUserAsOwner(Apartment $apartment)
+  private function setUserAsOwner(UserInterface $user, Apartment $apartment)
   {
-    $user = $this->security_context->getToken()->getUser();
-    
-    if(!is_object($user))
-    {
-      return false;
-    }
-    
     $this->applyAclToApartment($user, $apartment);
+      
+    /* @var $apartment Apartment */
+    $apartment->setOwner($user);
+
+    $this->em->persist($apartment);
+    $this->em->persist($user);
+    $this->em->flush();
+    
     return true;
   }
   

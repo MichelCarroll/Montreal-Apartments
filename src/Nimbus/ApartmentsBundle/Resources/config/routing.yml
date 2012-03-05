@@ -35,10 +35,8 @@ list_apartment:
     
     
 delete_apartment:
-  pattern: /apartment/delete
+  pattern: /apartment/delete/{slug}
   defaults: { _controller: NimbusApartmentsBundle:Apartment:delete }
-  requirements:
-    _method: POST
     
     
     

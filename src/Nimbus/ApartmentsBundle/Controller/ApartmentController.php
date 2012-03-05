@@ -44,7 +44,9 @@ class ApartmentController extends Controller
           return $this->redirect($this->generateUrl('fos_user_registration_register'));
         }
         
-        return $this->render('NimbusApartmentsBundle:Apartment:success.html.twig');
+        return $this->render('NimbusApartmentsBundle:Apartment:success.html.twig', array(
+            'apartment' => $apartment
+        ));
       }
     }
     
@@ -87,6 +89,10 @@ class ApartmentController extends Controller
         {
           return $this->redirect($this->generateUrl('fos_user_registration_register'));
         }
+        else 
+        {
+          return $this->redirect($this->generateUrl('details_browsing', array('slug' => $apartment->getSlug())));
+        }
         
         return $this->render('NimbusApartmentsBundle:Apartment:success.html.twig');
       }
@@ -101,10 +107,27 @@ class ApartmentController extends Controller
   }
   
   
-  
-  public function deleteAction(Request $request)
+  public function deleteAction(Request $request, $slug)
   { 
+    $referrer_url = $request->headers->get('referer');
     
+    
+    if ($request->getMethod() == 'POST') 
+    {
+      $apartment = $this->getDoctrine()
+                    ->getRepository('NimbusApartmentsBundle:Apartment')
+                    ->findOneBy(array('slug' => $slug));
+      
+      $handler = $this->get('apartments.apartment_registration_handler');
+      $apartment = $handler->delete($apartment);
+      
+      return $this->redirect($this->generateUrl('list_apartment'));
+    }
+      
+    return $this->render('NimbusApartmentsBundle:Apartment:delete.html.twig', array(
+      'slug' => $slug,
+      'referrer_url' => $referrer_url
+    ));
   }
   
   public function listAction()

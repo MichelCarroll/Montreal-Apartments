@@ -53,9 +53,14 @@ NimApart.setMarkerActions = function(marker, data) {
 
 NimApart.apartDataToBubbleContent = function(data) {
   var contentHtml = 
-    '<div class="thumbnail">\n\
-    <img src="'+data.image_source+'" alt="">\n\
-    <div class="caption">\n\
+    '<div class="thumbnail">\n\ ';
+  
+  if(data.image_source)
+  {
+    contentHtml += '<img src="'+data.image_source+'" />\n\ ';
+  }
+  
+  contentHtml += '<div class="caption">\n\
     <h5>'+data.title+'</h5>\n\
     <p>'+data.description+'</p>\n\
     </div></div>';

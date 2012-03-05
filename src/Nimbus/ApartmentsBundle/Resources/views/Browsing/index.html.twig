@@ -18,7 +18,7 @@
             'lat': {{ (apt.latitude?apt.latitude:0) }},
             'lng': {{ (apt.longitude?apt.longitude:0) }},
             'description': "{{ apt.shortenedDescription }}",
-            'image_source': "{{ image(apartments[0].getAbsolutePath()).cropResize(260,180) }}"
+            'image_source': "{{ (apt.getAbsolutePath ? image(apt.getAbsolutePath()).cropResize(260,180) : '') }}"
           } {{ (loop.last?'':',') }}
         {% endfor %}
       ];
@@ -35,6 +35,8 @@
     <p>Find your perfect Montreal apartment by browsing our map of availables ones.</p>
   </div>
     
+  <em>(hover to see summary)</em><br />
+  <em>(click to see details)</em>
   <div id="apartment_map" style="width:960px; height:600px;"></div>      
   
 
