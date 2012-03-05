@@ -5,5 +5,5 @@ body { padding-top: 80px; padding-bottom: 120px; }
 .semihidden { opacity:0.4; filter:alpha(opacity=40); /* For IE8 and earlier */}
 .hero-unit { padding: 40px !important;}
 .hero-unit h1 { font-size: 4em !important;  }
-
+.apart-details .row { margin: 12px 0; line-height: 30px; }
 textarea.big_textbox { width: 350px; height: 150px; }

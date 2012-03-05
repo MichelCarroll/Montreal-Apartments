@@ -42,4 +42,16 @@ class ApartmentRepository extends EntityRepository
 
     return count($result)?$result[0]:null;
   }
+  
+  
+  public function getByOwner($owner)
+  {
+    return
+      $this->createQueryBuilder('apartment')
+        ->select('apartment')
+        ->where('apartment.owner = :owner')
+        ->setParameter('owner', $owner)
+        ->getQuery()
+        ->execute();
+  }
 }

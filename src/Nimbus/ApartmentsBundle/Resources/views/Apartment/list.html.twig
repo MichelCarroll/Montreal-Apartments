@@ -1,0 +1,20 @@
+{% extends 'NimbusApartmentsBundle::base.html.twig' %}
+
+{% block body %}
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Apartments</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for apt in apartments %}
+    <tr>
+      <td><a href="{{ path('update_apartment', {'slug': apt.slug}) }}">{{ apt.title }}</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

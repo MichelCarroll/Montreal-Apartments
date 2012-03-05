@@ -5,17 +5,33 @@
 <h2>{{ apartment.title }}</h2>
 
 <div class="row">
-  <div class="span6">
-    <ul class="apartment">
-      <li><h3>Size</h3> {{ apartment.size }}</li>
-      <li><h3>Price</h3> {{ apartment.lease.monthlyPrice|number_format(2,'.') }}$ / month</li>
-      <li><h3>Date Available</h3> {{ apartment.lease.startDate|date("F Y") }}</li>
-      <li><h3>Furnished</h3> {{ (apartment.isFurnished)?'Yes':'No' }}</li>
-      <li><p>{{ apartment.description|nl2br }}</p></li>
-    </ul>
+  <div class="span6 apart-details">
+    <div class="row">
+      <div class="span2"><h3>Size</h3></div>
+      <div class="span2">{{ apartment.size }}</div>
+    </div>
+    <div class="row">
+      <div class="span2"><h3>Price</h3></div>
+      <div class="span2">{{ apartment.lease.monthlyPrice|number_format(2,'.') }}$ / month</div>
+    </div>
+    <div class="row">
+      <div class="span2"><h3>Date Available</h3></div>
+      <div class="span2">{{ apartment.lease.startDate|date("F Y") }}</div>
+    </div>
+    <div class="row">
+      <div class="span2"><h3>Furnished</h3></div>
+      <div class="span2">{{ (apartment.isFurnished)?'Yes':'No' }}</div>
+    </div>
+    <div class="row">
+      <div class="span4">
+        <p>{{ apartment.description|nl2br }}</p>
+      </div>
+    </div>
   </div>
   <div class="span4 offset2">
-    <img src="{{ image(apartment.getAbsolutePath()).cropResize(370,280) }}" />
+    <a href="{{ apartment.getWebPath() }}">
+      <img src="{{ image(apartment.getAbsolutePath()).cropResize(370,280) }}" />
+    </a>
   </div>
 </div>
 

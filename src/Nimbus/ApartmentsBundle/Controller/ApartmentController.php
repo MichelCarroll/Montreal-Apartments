@@ -107,4 +107,16 @@ class ApartmentController extends Controller
     
   }
   
+  public function listAction()
+  { 
+    $user = $this->container->get('security.context')->getToken()->getUser();
+    
+    $apartments = $this->getDoctrine()
+            ->getRepository('NimbusApartmentsBundle:Apartment')
+            ->getByOwner($user);
+    
+    return $this->render('NimbusApartmentsBundle:Apartment:list.html.twig', array(
+      'apartments' => $apartments
+    ));
+  }
 }

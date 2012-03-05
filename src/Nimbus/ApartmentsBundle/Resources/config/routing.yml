@@ -28,6 +28,11 @@ update_apartment:
   pattern: /apartment/update/{slug}
   defaults: { _controller: NimbusApartmentsBundle:Apartment:update }
     
+list_apartment:
+  pattern: /apartment/list
+  defaults: { _controller: NimbusApartmentsBundle:Apartment:list }
+    
+    
     
 delete_apartment:
   pattern: /apartment/delete
