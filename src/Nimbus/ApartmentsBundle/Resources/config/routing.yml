@@ -18,6 +18,12 @@ details_browsing:
     _method: GET
     
     
+contact_apartment_action:
+  pattern: /contact-poster
+  defaults: { _controller: NimbusApartmentsBundle:Browsing:contactApartment }
+  requirements:
+    _method: POST
+    
     
 new_apartment:
   pattern: /apartment/new

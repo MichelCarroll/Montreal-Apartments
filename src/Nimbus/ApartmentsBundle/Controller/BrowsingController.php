@@ -39,6 +39,11 @@ class BrowsingController extends Controller
     ));
   }
   
+  public function contactApartmentAction(Request $request)
+  {
+    $data = $request->request;
+  }
+  
   
   private function attemptApartmentFetch($slug)
   {
