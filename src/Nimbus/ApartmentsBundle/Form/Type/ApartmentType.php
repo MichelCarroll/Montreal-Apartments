@@ -46,7 +46,9 @@ class ApartmentType extends AbstractType
                 
           //HIDDEN
           ->add('longitude', 'hidden')
-          ->add('latitude', 'hidden');
+          ->add('latitude', 'hidden')
+        
+          ->add('recaptcha', 'ewz_recaptcha');
     }
 
     public function getDefaultOptions(array $options)

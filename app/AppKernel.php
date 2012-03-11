@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Nimbus\BaseBundle\NimbusBaseBundle(),
             new Symfony\Bundle\DoctrineFixturesBundle\DoctrineFixturesBundle(),
             new Gregwar\ImageBundle\GregwarImageBundle(),
+            new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

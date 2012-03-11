@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Nimbus\ApartmentsBundle\Helper\UrlHelper;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
+use EWZ\Bundle\RecaptchaBundle\Validator\Constraints as Recaptcha;
 
 /**
  * @ORM\Entity
@@ -46,6 +47,12 @@ class Apartment extends Entity implements Geolocatable
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
      */
     protected $owner;
+    
+
+    /**
+     * @Recaptcha\True
+     */
+    public $recaptcha;
     
 
     public function setTitle($title)

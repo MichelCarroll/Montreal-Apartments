@@ -71,3 +71,9 @@ fos_user:
         
         
 gregwar_image: ~
+
+ewz_recaptcha:
+    public_key:   6LdVys4SAAAAANcE33GsIVtgEsN4aeukFJYtcKJl
+    private_key:  6LdVys4SAAAAAMHtkG4CrecGTRRFpzT-6dD0H5qM
+    secure:       false
+    locale_key:   session.default_locale

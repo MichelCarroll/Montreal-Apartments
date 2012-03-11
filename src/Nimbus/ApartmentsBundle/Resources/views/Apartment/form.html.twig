@@ -1,6 +1,6 @@
 
 
-
+{% form_theme form 'EWZRecaptchaBundle:Form:ewz_recaptcha_widget.html.twig' %}
           
           
           <legend>General</legend>
@@ -66,6 +66,15 @@
               <div id="apartment_map" style="width: 400px; height: 400px;" class="semihidden"></div>
             </div>
           </div>
+          
+          <legend>Anti-Spam</legend>
+          
+              {{ form_row(form.recaptcha, 
+                { 
+                  'label': 'Captcha *', 
+                  'help' : 'Please enter these words to validate that you\'re in fact human, and not a spam bot.'
+                }) 
+              }}
           
           {{ form_rest(form) }}
           

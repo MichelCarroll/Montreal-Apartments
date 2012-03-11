@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Nimbus\ApartmentsBundle\Helper\UrlHelper;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
+use EWZ\Bundle\RecaptchaBundle\Validator\Constraints as Recaptcha;
 
 /**
  * @ORM\Entity
@@ -32,7 +33,7 @@ class Apartment extends Entity implements Geolocatable
     /**
      * @ORM\Column(type="boolean")
      */
-    protected $is_furnished;
+    protected $is_furnished = false;
     
     
     /**
@@ -48,6 +49,12 @@ class Apartment extends Entity implements Geolocatable
     protected $owner;
     
 
+    /**
+     * @Recaptcha\True
+     */
+    public $recaptcha;
+    
+
     public function setTitle($title)
     {
       if ($this->slug == null) 
@@ -58,19 +65,18 @@ class Apartment extends Entity implements Geolocatable
     }
     
     /**
-     * @ORM\Column(type="string", unique="true")
+     * @ORM\Column(type="string", unique="true", nullable="true")
      */
     protected $slug;
     
     /**
      * @ORM\Column(type="decimal", scale=7, nullable="true")
-     * @Assert\NotBlank
      */
     protected $longitude;
     
     /**
      * @ORM\Column(type="decimal", scale=7, nullable="true")
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="The apartment's location has to be entered")
      */
     protected $latitude;
     
@@ -281,6 +287,19 @@ class Apartment extends Entity implements Geolocatable
     {
         return $this->description;
     }
+    
+    public function getShortenedDescription($max_length = 100, $trailing = '...')
+    {
+      $raw_desc = preg_replace('/[^a-zA-Z0-9\s]/', '', strip_tags($this->description));
+      $len = strlen($raw_desc);
+      
+      if($len > $max_length)
+      {
+        $raw_desc = substr($raw_desc, 0, $max_length) . $trailing;
+      }
+      
+      return $raw_desc;
+    }
 
     /**
      * Set lease
@@ -373,9 +392,59 @@ class Apartment extends Entity implements Geolocatable
       // be automatically thrown by move(). This will properly prevent
       // the entity from being persisted to the database on error
       $this->file->move($this->getUploadRootDir(), $this->image_path);
-
+      
       unset($this->file);
     }
     
     
+
+    /**
+     * Set is_furnished
+     *
+     * @param boolean $isFurnished
+     */
+    public function setIsFurnished($isFurnished)
+    {
+        $this->is_furnished = $isFurnished;
+    }
+
+    /**
+     * Get is_furnished
+     *
+     * @return boolean 
+     */
+    public function getIsFurnished()
+    {
+        return $this->is_furnished;
+    }
+
+    /**
+     * Set size
+     *
+     * @param string $size
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+    }
+
+    /**
+     * Get size
+     *
+     * @return string 
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    /**
+     * Get image_path
+     *
+     * @return string 
+     */
+    public function getImagePath()
+    {
+        return $this->image_path;
+    }
 }

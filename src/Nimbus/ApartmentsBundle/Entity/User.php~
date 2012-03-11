@@ -35,4 +35,5 @@ class User extends BaseUser
     {
       return ($this->getUsername() === 'anon.');
     }
+    
 }
