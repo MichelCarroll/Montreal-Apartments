@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller as Controller;
 use Symfony\Component\HttpFoundation\Request as Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
+use Nimbus\ApartmentsBundle\Form\Type\ContactType;
 
 class BrowsingController extends Controller
 {
@@ -33,9 +33,12 @@ class BrowsingController extends Controller
   
   public function detailsAction($slug)
   {
+    $form = $this->createForm(new ContactType());
     $apartment = $this->attemptApartmentFetch($slug);
+    
     return $this->render('NimbusApartmentsBundle:Browsing:details.html.twig', array(
-      'apartment' => $apartment
+      'apartment' => $apartment,
+      'form' => $form->createView()
     ));
   }
   

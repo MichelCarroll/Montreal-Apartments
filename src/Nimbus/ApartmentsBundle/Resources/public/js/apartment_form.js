@@ -6,6 +6,7 @@ NimApart.geocodeAddr = 'http://maps.googleapis.com/maps/api/geocode/json?sensor=
 NimApart.postInitialize = function() {
   
   NimApart.map.setOptions({
+    scrollwheel: false, 
     draggable: false, 
     panControl: false, 
     rotateControl: false, 

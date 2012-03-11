@@ -3,28 +3,37 @@
 <form class="form-horizontal" action="{{ path('contact_apartment_action') }}" method="post">
   <fieldset>
     
+    {% form_theme form 'EWZRecaptchaBundle:Form:ewz_recaptcha_widget.html.twig' %}
+    
     <legend>Contact the Poster</legend>
     
-    <div class="control-group">
-      <label class="control-label" for="contact[name]">Your Name</label>
-      <div class="controls">
-        <input required="required" type="text" class="input-xlarge" id="input01" name="contact[name]">
-      </div>
-    </div>
+    {{ form_row(form.name, 
+      { 
+        'label': 'Your Name *'
+      }) 
+    }}
+
+    {{ form_row(form.email, 
+      { 
+        'label': 'Your Email *'
+      }) 
+    }}
+
+    {{ form_row(form.message, 
+      { 
+        'label': 'Message *',
+        'attr' : { 'class' : 'big_textbox' }
+      }) 
+    }}
     
-    <div class="control-group">
-      <label class="control-label" for="contact[email]">Your Email</label>
-      <div class="controls">
-        <input required="required" type="email" class="input-xlarge" id="input01" name="contact[email]">
-      </div>
-    </div>
-    
-    <div class="control-group">
-      <label class="control-label" for="contact[message]">Message</label>
-      <div class="controls">
-        <textarea required="required" class="med_textbox" name="contact[message]"></textarea>
-      </div>
-    </div>
+    {{ form_row(form.recaptcha, 
+      { 
+        'label': 'Captcha *', 
+        'help' : 'Please enter these words to validate that you\'re in fact human, and not a spam bot.'
+      }) 
+    }}
+
+    {{ form_rest(form) }}
     
     <div class="form-actions">
       <button type="submit" class="btn btn-primary">Send Message</button>
