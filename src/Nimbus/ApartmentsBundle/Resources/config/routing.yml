@@ -14,15 +14,6 @@ summary_browsing:
 details_browsing:
   pattern: /details/{slug}
   defaults: { _controller: NimbusApartmentsBundle:Browsing:details }
-  requirements:
-    _method: GET
-    
-    
-contact_apartment_action:
-  pattern: /contact-poster
-  defaults: { _controller: NimbusApartmentsBundle:Browsing:contactApartment }
-  requirements:
-    _method: POST
     
     
 new_apartment:

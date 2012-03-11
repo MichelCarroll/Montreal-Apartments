@@ -44,7 +44,7 @@ class Apartment extends Entity implements Geolocatable
     
     /**
      * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
+       * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
      */
     protected $owner;
     

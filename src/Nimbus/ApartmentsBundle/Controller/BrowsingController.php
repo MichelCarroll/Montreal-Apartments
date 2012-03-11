@@ -7,7 +7,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller as Controller;
 use Symfony\Component\HttpFoundation\Request as Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use Nimbus\ApartmentsBundle\Form\Type\ContactType;
+use Nimbus\ApartmentsBundle\Entity\Contact;
+use Nimbus\ApartmentsBundle\Entity\Apartment;
 
 class BrowsingController extends Controller
 {
@@ -31,10 +34,31 @@ class BrowsingController extends Controller
   }
   
   
-  public function detailsAction($slug)
+  public function detailsAction(Request $request, $slug)
   {
-    $form = $this->createForm(new ContactType());
+    $this->get('session')->clearFlashes();
     $apartment = $this->attemptApartmentFetch($slug);
+    
+    $contact = new Contact();
+    $contact->setRecipient($apartment->getOwner());
+    $form = $this->createForm(new ContactType(), $contact);
+    
+    if($request->getMethod() == 'POST')
+    {
+      $form->bindRequest($request);
+      
+      if($form->isValid())
+      {
+        $this->sendContactEmail($contact, $apartment);
+        $this->get('session')->setFlash('success', 
+          'Your message has successfully been sent to the apartment\'s poster.');
+      }
+      else
+      {
+        $this->get('session')->setFlash('error', 
+          'The contact form hasn\'t been filled out correctly.');
+      }
+    }
     
     return $this->render('NimbusApartmentsBundle:Browsing:details.html.twig', array(
       'apartment' => $apartment,
@@ -42,21 +66,19 @@ class BrowsingController extends Controller
     ));
   }
   
-  public function contactApartmentAction(Request $request)
+  private function sendContactEmail(Contact $contact, Apartment $apartment)
   {
-    $data = $request->request;
+    $em = $this->getDoctrine()->getEntityManager();
+    $em->persist($contact);
+    $em->flush();
     
-    $apt_slug = $data->get('contact[apartment_slug]', null, true);
-    $target_apt = $this->attemptApartmentFetch($apt_slug);
-    
-    $sender_name = $data->get('contact[name]', null, true);
-    $sender_email = $data->get('contact[email]', null, true);
-    $sender_message = $data->get('contact[message]', null, true);
-    $recip_email = $target_apt->getOwner()->getEmail();
-    $apartment_title = $target_apt->getTitle();
+    $sender_name = $contact->getName();
+    $sender_email = $contact->getEmail();
+    $sender_message = $contact->getMessage();
+    $recip_email = $contact->getRecipient()->getEmail();
     
     $message = \Swift_Message::newInstance()
-        ->setSubject('Message in response to ' . $apartment_title . ' - Montreal Cribs')
+        ->setSubject('Message in response to ' . $apartment->getTitle() . ' - Montreal Cribs')
         ->setFrom($sender_email)
         ->setTo($recip_email)
         ->setBody($this->renderView(
@@ -64,19 +86,11 @@ class BrowsingController extends Controller
           array(
             'name' => $sender_name,
             'message' => $sender_message,
-            'apt_title' => $apartment_title,
+            'apartment' => $apartment,
           )
         ));
     
     $this->get('mailer')->send($message);
-    
-    $this->get('session')->setFlash('success', 
-      'Your message has successfully been sent to the apartment\'s poster.');
-    
-    return $this->redirect($this->generateUrl(
-      'details_browsing', 
-      array('slug' => $apt_slug)
-    ));
   }
   
   /**

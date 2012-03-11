@@ -1,6 +1,6 @@
     
 
-<form class="form-horizontal" action="{{ path('contact_apartment_action') }}" method="post">
+<form class="form-horizontal" action="{{ path('details_browsing', {'slug': apartment.slug }) }}" method="post">
   <fieldset>
     
     {% form_theme form 'EWZRecaptchaBundle:Form:ewz_recaptcha_widget.html.twig' %}
@@ -38,8 +38,6 @@
     <div class="form-actions">
       <button type="submit" class="btn btn-primary">Send Message</button>
     </div>
-    
-    <input type="hidden" name="contact[apartment_slug]" value="{{ apartment.slug }}" />
     
   </fieldset>
 </form>
