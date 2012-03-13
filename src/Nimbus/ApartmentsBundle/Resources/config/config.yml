@@ -9,29 +9,6 @@ fos_user:
             
             
 twig:
-    globals:
-        
-      map:
-
-        google_key: AIzaSyCJAPVYxIJlcZhdqgQkdF0m3bW4ISr2WnU
-
-        initial:
-          lat: 45.5340406
-          lng: -73.64920935
-          zoom: 11
-          
-        bounds:
-          sw:
-            lat: 45.22101483644609
-            lng: -74.26513037050778
-          ne:
-            lat: 45.80226860345413
-            lng: -73.41231664980465
-            
-
-        form_refresh_rate: 1000
-        spotlight_zoom: 14
-        
     form:
         resources:  
            - 'NimbusApartmentsBundle:Form:fields.html.twig'
