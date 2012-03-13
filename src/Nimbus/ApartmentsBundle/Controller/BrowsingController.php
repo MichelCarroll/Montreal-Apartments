@@ -17,6 +17,7 @@ class BrowsingController extends Controller
   
   public function indexAction()
   {
+    $this->get('session')->clearFlashes();
     $apartments = $this->getDoctrine()
             ->getRepository('NimbusApartmentsBundle:Apartment')
             ->getAllActive();
@@ -29,6 +30,7 @@ class BrowsingController extends Controller
   
   public function summaryAction($slug)
   {
+    $this->get('session')->clearFlashes();
     $apartment = $this->attemptApartmentFetch($slug);
     return new Response(json_encode($apartment->getSummary()));
   }
