@@ -17,3 +17,7 @@ monolog:
             type:  stream
             path:  %kernel.logs_dir%/%kernel.environment%.log
             level: debug
+fos_user:
+    from_email:
+        address:        webmaster@montrealcribs.com
+        sender_name:    Montreal Cribs
