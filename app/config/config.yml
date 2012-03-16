@@ -81,7 +81,9 @@ ewz_recaptcha:
                
 twig:
     globals:
-        
+      
+      google_analytics_tag: %google_analytics%
+      
       map:
 
         google_key: %google_key%

@@ -22,3 +22,5 @@
     recaptcha_private_key =
 
     google_key = 
+
+    google_analytics =
