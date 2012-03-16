@@ -10,3 +10,4 @@ body { padding-top: 80px; padding-bottom: 120px; }
 textarea.med_textbox { width: 270px; height: 100px; }
 .btn.back { margin-bottom: 20px; }
 .table .actions a { margin-right: 10px; }
+.hero-unit .super { display: inline; font-size: 15px !important; vertical-align: super; }
