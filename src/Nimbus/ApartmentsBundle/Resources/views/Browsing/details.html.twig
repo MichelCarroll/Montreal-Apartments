@@ -30,11 +30,15 @@
       </div>
     </div>
   </div>
-  <div class="span4 offset2">
-    <a href="{{ apartment.getWebPath() }}">
-      <img src="{{ image(apartment.getAbsolutePath()).cropResize(370,280) }}" />
-    </a>
-  </div>
+    
+  {% if apartment.getWebPath()|length > 0 %}
+    <div class="span4 offset2">
+      <a href="{{ apartment.getWebPath() }}">
+        <img src="{{ image(apartment.getAbsolutePath()).cropResize(370,280) }}" />
+      </a>
+    </div>
+  {% endif %}
+    
 </div>
 
 {% include 'NimbusApartmentsBundle:Browsing:contact.html.twig' %}
