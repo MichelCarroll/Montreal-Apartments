@@ -2,7 +2,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>{% block title %}Apartments{% endblock %}</title>
+        <title>{% block title %}Montreal Apartments – Find the Perfect Rental | Montreal Cribs{% endblock %}</title>
+        
+        {% block meta %}
+        <meta title="description" content="Easily find an apartment for rent in the region of Montreal. Search the map for postings, view apartment pictures/details, and contact the landlord.">  
+        {% endblock %}
         
         {% block stylesheets %}
             <link href="{{ asset('/bundles/nimbusapartments/css/main.css') }}" type="text/css" rel="stylesheet" />
