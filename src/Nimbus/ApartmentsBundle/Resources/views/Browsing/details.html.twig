@@ -1,5 +1,12 @@
 {% extends 'NimbusApartmentsBundle::base.html.twig' %}
 
+
+{% block title %}{{ apartment.title|slice(0, 50) }} | Montreal Cribs{% endblock %}
+
+{% block meta %}
+   <meta title="description" content="{{ apartment.description|slice(0, 150) }}...">  
+{% endblock %}
+   
 {% block body %}
 
 <a class="btn back" href="{{ path('index_browsing') }}"><i class="icon-arrow-left"></i> Back to map</a>

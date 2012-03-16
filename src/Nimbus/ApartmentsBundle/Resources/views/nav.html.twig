@@ -9,13 +9,13 @@
       <a class="brand" href="{{ path('index_browsing') }}">Montreal Cribs</a>
       <div class="nav-collapse">
         <ul class="nav">
-          <li><a href="{{ path('index_browsing') }}">Map</a></li>
+          <li><a href="{{ path('index_browsing') }}">Browse</a></li>
           {% if (not is_granted('IS_AUTHENTICATED_FULLY')) %}
-            <li><a href="{{ path('new_apartment') }}">Register apartment</a></li>
-            <li><a href="{{ path('fos_user_security_login') }}">Login as landlord</a></li>
+            <li><a href="{{ path('new_apartment') }}">Register Apartment</a></li>
+            <li><a href="{{ path('fos_user_security_login') }}">Login</a></li>
           {% else %}
-            <li><a href="{{ path('new_apartment') }}">New apartment</a></li>
-            <li><a href="{{ path('list_apartment') }}">My apartments</a></li>
+            <li><a href="{{ path('new_apartment') }}">New Apartment</a></li>
+            <li><a href="{{ path('list_apartment') }}">My Apartments</a></li>
             <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
           {% endif %}
         </ul>
